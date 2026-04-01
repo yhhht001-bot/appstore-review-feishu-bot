@@ -115,7 +115,7 @@ SANDBOX_MODE=true python appstore_review_report.py
 标题：
 
 ```text
-App 审核状态变更 2026-04-01 21:10
+App 审核告警 2026-04-01 21:10
 ```
 
 正文：
