@@ -121,9 +121,12 @@ App 审核状态变更 2026-04-01 21:10
 正文：
 
 ```text
-检测到 2 项审核状态变化
-版本 | My App | IOS | 1.2.3 | IN_REVIEW -> PENDING_DEVELOPER_RELEASE
-CPP | My App | spring_hero | v2 | WAITING_FOR_REVIEW -> APPROVED
+审核告警摘要
+应用数: 1 | 变更数: 2
+【版本审核】1 项
+1. 版本 | My App | IOS | 1.2.3 | 审核中 -> 待开发者发布
+【CPP 审核】1 项
+1. CPP | My App | spring_hero | v2 | 等待审核 -> 已通过
 ```
 
 ## 注意事项

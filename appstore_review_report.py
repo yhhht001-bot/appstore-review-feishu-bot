@@ -14,6 +14,27 @@ import requests
 
 
 ASC_AUD = "appstoreconnect-v1"
+ENTITY_TYPE_LABELS = {
+    "APP_VERSION": "版本审核",
+    "CPP": "CPP 审核",
+    "IAE": "IAE 审核",
+}
+STATE_LABELS = {
+    "APPROVED": "已通过",
+    "IN_REVIEW": "审核中",
+    "METADATA_REJECTED": "元数据被拒",
+    "PAST": "已结束",
+    "PENDING_APPLE_RELEASE": "待苹果发布",
+    "PENDING_DEVELOPER_RELEASE": "待开发者发布",
+    "PUBLISHED": "已发布",
+    "READY_FOR_DISTRIBUTION": "可分发",
+    "READY_FOR_REVIEW": "待提交审核",
+    "READY_FOR_SALE": "可销售",
+    "REJECTED": "被拒绝",
+    "REMOVED": "已移除",
+    "WAITING_FOR_EXPORT_COMPLIANCE": "等待出口合规",
+    "WAITING_FOR_REVIEW": "等待审核",
+}
 
 
 @dataclass
@@ -397,6 +418,23 @@ def build_report_title() -> str:
     return f"App 审核状态变更 {now}"
 
 
+def build_snapshot_title() -> str:
+    now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
+    return f"App 审核状态预览 {now}"
+
+
+def rich_text(text: str, *, bold: bool = False) -> dict[str, Any]:
+    _ = bold
+    return {"tag": "text", "text": text}
+
+
+def localize_state(state: str) -> str:
+    parts = [part.strip() for part in state.split("/") if part.strip()]
+    if not parts:
+        return "未知状态"
+    return " / ".join(STATE_LABELS.get(part, part) for part in parts)
+
+
 def item_label(item: dict[str, str]) -> str:
     entity_type = item.get("entity_type", "")
     app_name = item.get("app_name", "-")
@@ -409,6 +447,117 @@ def item_label(item: dict[str, str]) -> str:
     return f"对象 | {app_name} | {item.get('name', '-')}"
 
 
+def summarize_scope(changes: list[dict[str, Any]]) -> tuple[int, int]:
+    app_ids = {
+        (change.get("current") or change.get("previous") or {}).get("app_id", "")
+        for change in changes
+    }
+    return len([app_id for app_id in app_ids if app_id]), len(changes)
+
+
+def group_changes(changes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    grouped: dict[str, list[dict[str, Any]]] = {key: [] for key in ENTITY_TYPE_LABELS}
+    for change in changes:
+        previous = change["previous"]
+        current = change["current"]
+        entity_type = (current or previous or {}).get("entity_type", "UNKNOWN")
+        grouped.setdefault(entity_type, []).append(change)
+    return grouped
+
+
+def group_items(items: list[dict[str, str]]) -> dict[str, list[dict[str, str]]]:
+    grouped: dict[str, list[dict[str, str]]] = {key: [] for key in ENTITY_TYPE_LABELS}
+    for item in items:
+        grouped.setdefault(item.get("entity_type", "UNKNOWN"), []).append(item)
+    return grouped
+
+
+def render_change_line(change: dict[str, Any]) -> str:
+    previous = change["previous"]
+    current = change["current"]
+    source = current or previous or {}
+    prefix = item_label(source)
+
+    if previous is None and current is not None:
+        return f"{prefix} | 新增监控 | 当前: {localize_state(current.get('state', 'UNKNOWN'))}"
+    if previous is not None and current is None:
+        return f"{prefix} | {localize_state(previous.get('state', 'UNKNOWN'))} -> {localize_state('REMOVED')}"
+    return (
+        f"{prefix} | "
+        f"{localize_state(previous.get('state', 'UNKNOWN'))} -> {localize_state(current.get('state', 'UNKNOWN'))}"
+    )
+
+
+def render_item_line(item: dict[str, str]) -> str:
+    return f"{item_label(item)} | 当前: {localize_state(item.get('state', 'UNKNOWN'))}"
+
+
+def build_report_rows(settings: Settings, changes: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    rows: list[list[dict[str, Any]]] = []
+    if settings.feishu_keyword:
+        rows.append([rich_text(settings.feishu_keyword)])
+
+    app_count, change_count = summarize_scope(changes)
+    rows.append([rich_text("审核告警摘要", bold=True)])
+    rows.append([rich_text(f"应用数: {app_count} | 变更数: {change_count}")])
+
+    grouped = group_changes(changes)
+    for entity_type in ("APP_VERSION", "CPP", "IAE"):
+        group_changes_list = grouped.get(entity_type, [])
+        if not group_changes_list:
+            continue
+        rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_changes_list)} 项", bold=True)])
+        for index, change in enumerate(group_changes_list, start=1):
+            rows.append([rich_text(f"{index}. {render_change_line(change)}")])
+
+    return rows
+
+
+def build_snapshot_rows(settings: Settings, items: list[dict[str, str]]) -> list[list[dict[str, Any]]]:
+    rows: list[list[dict[str, Any]]] = []
+    if settings.feishu_keyword:
+        rows.append([rich_text(settings.feishu_keyword)])
+
+    app_ids = {item.get("app_id", "") for item in items if item.get("app_id", "")}
+    rows.append([rich_text("当前审核概览", bold=True)])
+    rows.append([rich_text(f"应用数: {len(app_ids)} | 对象数: {len(items)}")])
+
+    grouped = group_items(items)
+    for entity_type in ("APP_VERSION", "CPP", "IAE"):
+        group_items_list = grouped.get(entity_type, [])
+        if not group_items_list:
+            continue
+        rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_items_list)} 项", bold=True)])
+        for index, item in enumerate(group_items_list, start=1):
+            rows.append([rich_text(f"{index}. {render_item_line(item)}")])
+
+    return rows
+
+
+def build_feishu_payload_from_rows(title: str, rows: list[list[dict[str, Any]]]) -> dict[str, Any]:
+    return {
+        "msg_type": "post",
+        "content": {
+            "post": {
+                "zh_cn": {
+                    "title": title,
+                    "content": rows,
+                }
+            }
+        },
+    }
+
+
+def build_feishu_payload(settings: Settings, changes: list[dict[str, Any]]) -> dict[str, Any]:
+    rows = build_report_rows(settings, changes)
+    return build_feishu_payload_from_rows(build_report_title(), rows)
+
+
+def build_snapshot_payload(settings: Settings, items: list[dict[str, str]]) -> dict[str, Any]:
+    rows = build_snapshot_rows(settings, items)
+    return build_feishu_payload_from_rows(build_snapshot_title(), rows)
+
+
 def build_report_lines(settings: Settings, changes: list[dict[str, Any]]) -> list[str]:
     lines: list[str] = []
     if settings.feishu_keyword:
@@ -417,35 +566,9 @@ def build_report_lines(settings: Settings, changes: list[dict[str, Any]]) -> lis
     lines.append(f"检测到 {len(changes)} 项审核状态变化")
 
     for change in changes:
-        previous = change["previous"]
-        current = change["current"]
-        if previous is None and current is not None:
-            lines.append(f"{item_label(current)} | 新增监控对象 | 当前状态: {current.get('state', 'UNKNOWN')}")
-            continue
-        if previous is not None and current is None:
-            lines.append(f"{item_label(previous)} | 状态消失 | {previous.get('state', 'UNKNOWN')} -> REMOVED")
-            continue
-        if previous and current:
-            lines.append(
-                f"{item_label(current)} | {previous.get('state', 'UNKNOWN')} -> {current.get('state', 'UNKNOWN')}"
-            )
+        lines.append(render_change_line(change))
 
     return lines
-
-
-def build_feishu_payload(settings: Settings, changes: list[dict[str, Any]]) -> dict[str, Any]:
-    lines = build_report_lines(settings, changes)
-    return {
-        "msg_type": "post",
-        "content": {
-            "post": {
-                "zh_cn": {
-                    "title": build_report_title(),
-                    "content": [[{"tag": "text", "text": line}] for line in lines],
-                }
-            }
-        },
-    }
 
 
 def send_to_feishu(settings: Settings, payload: dict[str, Any]) -> dict[str, Any]:
