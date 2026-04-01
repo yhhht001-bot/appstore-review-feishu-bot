@@ -4,3 +4,4 @@ __pycache__/
 .env
 .venv/
 asc_private_key.p8
+.state/

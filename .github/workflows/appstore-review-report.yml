@@ -2,8 +2,11 @@ name: App Store Review Report
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   report:
@@ -12,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -20,6 +25,16 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Restore previous state
+        run: |
+          mkdir -p .state
+          if git ls-remote --exit-code --heads origin bot-state >/dev/null 2>&1; then
+            git fetch origin bot-state:bot-state
+            git show bot-state:state/appstore_review_state.json > .state/appstore_review_state.json || true
+          else
+            echo "bot-state 分支不存在，首次运行会自动初始化快照"
+          fi
 
       - name: Write App Store Connect private key
         run: |
@@ -35,7 +50,44 @@ jobs:
           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
           FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
           FEISHU_KEYWORD: ${{ secrets.FEISHU_KEYWORD }}
-          ASC_REVIEW_STATES: ${{ secrets.ASC_REVIEW_STATES }}
           ASC_APP_IDS: ${{ secrets.ASC_APP_IDS }}
-          REPORT_EMPTY_RESULT: ${{ secrets.REPORT_EMPTY_RESULT }}
+          STATE_FILE_PATH: ./.state/appstore_review_state.json
         run: python appstore_review_report.py
+
+      - name: Persist state
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -f .state/appstore_review_state.json ]; then
+            echo "没有可持久化的状态文件"
+            exit 0
+          fi
+
+          cp .state/appstore_review_state.json /tmp/appstore_review_state.json
+          mkdir -p /tmp/appstore-review-state-repo
+          cd /tmp/appstore-review-state-repo
+
+          git init
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch origin bot-state >/dev/null 2>&1 || true
+
+          if git rev-parse --verify FETCH_HEAD >/dev/null 2>&1; then
+            git checkout -B bot-state FETCH_HEAD
+          else
+            git checkout --orphan bot-state
+          fi
+
+          mkdir -p state
+          cp /tmp/appstore_review_state.json state/appstore_review_state.json
+
+          git add state/appstore_review_state.json
+          if git diff --cached --quiet; then
+            echo "状态快照没有变化"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update app review state snapshot"
+          git push origin bot-state
