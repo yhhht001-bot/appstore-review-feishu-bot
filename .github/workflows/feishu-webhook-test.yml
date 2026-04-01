@@ -1,0 +1,72 @@
+name: Feishu Webhook Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-webhook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send test message
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
+          FEISHU_KEYWORD: ${{ secrets.FEISHU_KEYWORD }}
+        run: |
+          python <<'PY'
+          import base64
+          import datetime as dt
+          import hashlib
+          import hmac
+          import json
+          import os
+
+          import requests
+
+          webhook = os.environ["FEISHU_WEBHOOK_URL"].strip()
+          secret = os.environ.get("FEISHU_SECRET", "").strip()
+          keyword = os.environ.get("FEISHU_KEYWORD", "").strip()
+
+          now = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
+          lines = []
+          if keyword:
+              lines.append(keyword)
+          lines.extend(
+              [
+                  "飞书 webhook 连通性测试",
+                  f"发送时间: {now}",
+                  "来源: GitHub Actions",
+                  "结果: 如果你看到这条消息，说明新的 webhook 已生效",
+              ]
+          )
+
+          payload = {
+              "msg_type": "post",
+              "content": {
+                  "post": {
+                      "zh_cn": {
+                          "title": f"Webhook 测试 {now}",
+                          "content": [[{"tag": "text", "text": line}] for line in lines],
+                      }
+                  }
+              },
+          }
+
+          if secret:
+              timestamp = str(int(dt.datetime.now().timestamp()))
+              string_to_sign = f"{timestamp}\n{secret}"
+              sign = base64.b64encode(
+                  hmac.new(string_to_sign.encode("utf-8"), digestmod=hashlib.sha256).digest()
+              ).decode("utf-8")
+              payload["timestamp"] = timestamp
+              payload["sign"] = sign
+
+          response = requests.post(webhook, json=payload, timeout=20)
+          response.raise_for_status()
+          result = response.json()
+          if result.get("code") not in (0, None):
+              raise RuntimeError(json.dumps(result, ensure_ascii=False))
+
+          print(json.dumps({"status": "ok", "feishu": result}, ensure_ascii=False))
+          PY
