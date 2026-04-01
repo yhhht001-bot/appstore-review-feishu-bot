@@ -19,6 +19,26 @@ ENTITY_TYPE_LABELS = {
     "CPP": "CPP 审核",
     "IAE": "IAE 审核",
 }
+STATE_PRIORITY = {
+    "REJECTED": 0,
+    "METADATA_REJECTED": 1,
+    "WAITING_FOR_EXPORT_COMPLIANCE": 2,
+    "INVALID_BINARY": 3,
+    "IN_REVIEW": 4,
+    "WAITING_FOR_REVIEW": 5,
+    "READY_FOR_REVIEW": 6,
+    "PENDING_DEVELOPER_RELEASE": 7,
+    "PENDING_APPLE_RELEASE": 8,
+    "DEVELOPER_REJECTED": 9,
+    "PROCESSING_FOR_APP_STORE": 10,
+    "ACCEPTED": 11,
+    "APPROVED": 12,
+    "PUBLISHED": 13,
+    "READY_FOR_SALE": 14,
+    "READY_FOR_DISTRIBUTION": 15,
+    "PAST": 16,
+    "REMOVED": 17,
+}
 STATE_LABELS = {
     "APPROVED": "已通过",
     "IN_REVIEW": "审核中",
@@ -415,12 +435,12 @@ def feishu_signature(secret: str) -> tuple[str, str]:
 
 def build_report_title() -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"App 审核状态变更 {now}"
+    return f"App 审核告警 {now}"
 
 
 def build_snapshot_title() -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"App 审核状态预览 {now}"
+    return f"App 审核概览 {now}"
 
 
 def rich_text(text: str, *, bold: bool = False) -> dict[str, Any]:
@@ -433,6 +453,13 @@ def localize_state(state: str) -> str:
     if not parts:
         return "未知状态"
     return " / ".join(STATE_LABELS.get(part, part) for part in parts)
+
+
+def state_priority(state: str) -> int:
+    parts = [part.strip() for part in state.split("/") if part.strip()]
+    if not parts:
+        return 999
+    return min(STATE_PRIORITY.get(part, 999) for part in parts)
 
 
 def item_label(item: dict[str, str]) -> str:
@@ -492,6 +519,30 @@ def render_item_line(item: dict[str, str]) -> str:
     return f"{item_label(item)} | 当前: {localize_state(item.get('state', 'UNKNOWN'))}"
 
 
+def item_sort_key(item: dict[str, str]) -> tuple[Any, ...]:
+    return (
+        state_priority(item.get("state", "")),
+        item.get("app_name", ""),
+        item.get("name", ""),
+        item.get("version", ""),
+    )
+
+
+def change_sort_key(change: dict[str, Any]) -> tuple[Any, ...]:
+    current = change.get("current") or {}
+    previous = change.get("previous") or {}
+    source = current or previous
+    return (
+        min(
+            state_priority(current.get("state", "")) if current else 999,
+            state_priority(previous.get("state", "")) if previous else 999,
+        ),
+        source.get("app_name", ""),
+        source.get("name", ""),
+        source.get("version", ""),
+    )
+
+
 def build_report_rows(settings: Settings, changes: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
     rows: list[list[dict[str, Any]]] = []
     if settings.feishu_keyword:
@@ -503,7 +554,7 @@ def build_report_rows(settings: Settings, changes: list[dict[str, Any]]) -> list
 
     grouped = group_changes(changes)
     for entity_type in ("APP_VERSION", "CPP", "IAE"):
-        group_changes_list = grouped.get(entity_type, [])
+        group_changes_list = sorted(grouped.get(entity_type, []), key=change_sort_key)
         if not group_changes_list:
             continue
         rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_changes_list)} 项", bold=True)])
@@ -524,7 +575,7 @@ def build_snapshot_rows(settings: Settings, items: list[dict[str, str]]) -> list
 
     grouped = group_items(items)
     for entity_type in ("APP_VERSION", "CPP", "IAE"):
-        group_items_list = grouped.get(entity_type, [])
+        group_items_list = sorted(grouped.get(entity_type, []), key=item_sort_key)
         if not group_items_list:
             continue
         rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_items_list)} 项", bold=True)])
