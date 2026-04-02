@@ -61,7 +61,7 @@
       "name": "taichiwalking_0401",
       "parent_id": "4aeb8e35-3a95-4633-bbcb-00cfb309bba2",
       "platform": "IOS",
-      "state": "REJECTED",
+      "state": "PREPARE_FOR_SUBMISSION",
       "version": "2"
     },
     "CPP:b839a000-bce2-4415-8010-e8c1d9a5f409": {
@@ -137,5 +137,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-04-01T13:06:16.777635+00:00"
+  "updated_at": "2026-04-02T05:49:00.602981+00:00"
 }
