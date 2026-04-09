@@ -435,7 +435,7 @@ def feishu_signature(secret: str) -> tuple[str, str]:
 
 def build_report_title() -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"App 审核告警 {now}"
+    return f"App Store 状态变更 {now}"
 
 
 def build_snapshot_title() -> str:
@@ -474,24 +474,6 @@ def item_label(item: dict[str, str]) -> str:
     return f"对象 | {app_name} | {item.get('name', '-')}"
 
 
-def summarize_scope(changes: list[dict[str, Any]]) -> tuple[int, int]:
-    app_ids = {
-        (change.get("current") or change.get("previous") or {}).get("app_id", "")
-        for change in changes
-    }
-    return len([app_id for app_id in app_ids if app_id]), len(changes)
-
-
-def group_changes(changes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
-    grouped: dict[str, list[dict[str, Any]]] = {key: [] for key in ENTITY_TYPE_LABELS}
-    for change in changes:
-        previous = change["previous"]
-        current = change["current"]
-        entity_type = (current or previous or {}).get("entity_type", "UNKNOWN")
-        grouped.setdefault(entity_type, []).append(change)
-    return grouped
-
-
 def group_items(items: list[dict[str, str]]) -> dict[str, list[dict[str, str]]]:
     grouped: dict[str, list[dict[str, str]]] = {key: [] for key in ENTITY_TYPE_LABELS}
     for item in items:
@@ -499,20 +481,26 @@ def group_items(items: list[dict[str, str]]) -> dict[str, list[dict[str, str]]]:
     return grouped
 
 
-def render_change_line(change: dict[str, Any]) -> str:
-    previous = change["previous"]
-    current = change["current"]
-    source = current or previous or {}
-    prefix = item_label(source)
+def report_previous_state(previous: dict[str, str] | None) -> str:
+    if previous is None:
+        return "无"
+    return previous.get("state", "").strip() or "UNKNOWN"
 
-    if previous is None and current is not None:
-        return f"{prefix} | 新增监控 | 当前: {localize_state(current.get('state', 'UNKNOWN'))}"
-    if previous is not None and current is None:
-        return f"{prefix} | {localize_state(previous.get('state', 'UNKNOWN'))} -> {localize_state('REMOVED')}"
-    return (
-        f"{prefix} | "
-        f"{localize_state(previous.get('state', 'UNKNOWN'))} -> {localize_state(current.get('state', 'UNKNOWN'))}"
-    )
+
+def report_next_state(current: dict[str, str] | None) -> str:
+    if current is None:
+        return "REMOVED"
+    return current.get("state", "").strip() or "UNKNOWN"
+
+
+def render_change_block(change: dict[str, Any]) -> list[str]:
+    source = change.get("current") or change.get("previous") or {}
+    return [
+        "App Store 状态变更",
+        f"对象：{item_label(source)}",
+        f"旧状态：{report_previous_state(change.get('previous'))}",
+        f"新状态：{report_next_state(change.get('current'))}",
+    ]
 
 
 def render_item_line(item: dict[str, str]) -> str:
@@ -548,18 +536,12 @@ def build_report_rows(settings: Settings, changes: list[dict[str, Any]]) -> list
     if settings.feishu_keyword:
         rows.append([rich_text(settings.feishu_keyword)])
 
-    app_count, change_count = summarize_scope(changes)
-    rows.append([rich_text("审核告警摘要", bold=True)])
-    rows.append([rich_text(f"应用数: {app_count} | 变更数: {change_count}")])
-
-    grouped = group_changes(changes)
-    for entity_type in ("APP_VERSION", "CPP", "IAE"):
-        group_changes_list = sorted(grouped.get(entity_type, []), key=change_sort_key)
-        if not group_changes_list:
-            continue
-        rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_changes_list)} 项", bold=True)])
-        for index, change in enumerate(group_changes_list, start=1):
-            rows.append([rich_text(f"{index}. {render_change_line(change)}")])
+    sorted_changes = sorted(changes, key=change_sort_key)
+    for index, change in enumerate(sorted_changes):
+        for line in render_change_block(change):
+            rows.append([rich_text(line)])
+        if index != len(sorted_changes) - 1:
+            rows.append([rich_text("")])
 
     return rows
 
@@ -614,10 +596,11 @@ def build_report_lines(settings: Settings, changes: list[dict[str, Any]]) -> lis
     if settings.feishu_keyword:
         lines.append(settings.feishu_keyword)
 
-    lines.append(f"检测到 {len(changes)} 项审核状态变化")
-
-    for change in changes:
-        lines.append(render_change_line(change))
+    sorted_changes = sorted(changes, key=change_sort_key)
+    for index, change in enumerate(sorted_changes):
+        lines.extend(render_change_block(change))
+        if index != len(sorted_changes) - 1:
+            lines.append("")
 
     return lines
 
