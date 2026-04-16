@@ -115,18 +115,20 @@ SANDBOX_MODE=true python appstore_review_report.py
 标题：
 
 ```text
-App 审核告警 2026-04-01 21:10
+App审核信息 2026-04-01 21:10
 ```
 
 正文：
 
 ```text
-审核告警摘要
-应用数: 1 | 变更数: 2
-【版本审核】1 项
-1. 版本 | My App | IOS | 1.2.3 | 审核中 -> 待开发者发布
-【CPP 审核】1 项
-1. CPP | My App | spring_hero | v2 | 等待审核 -> 已通过
+My App
+【IOS】
+版本：1.2.3
+旧状态：审核中
+新状态：待开发者发布
+CPP：spring_hero | v2
+旧状态：等待审核
+新状态：已通过
 ```
 
 ## 注意事项

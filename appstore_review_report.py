@@ -435,12 +435,12 @@ def feishu_signature(secret: str) -> tuple[str, str]:
 
 def build_report_title() -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"App 审核告警 {now}"
+    return f"App审核信息 {now}"
 
 
 def build_snapshot_title() -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"App 审核概览 {now}"
+    return f"App审核信息概览 {now}"
 
 
 def rich_text(text: str, *, bold: bool = False) -> dict[str, Any]:
@@ -474,49 +474,71 @@ def item_label(item: dict[str, str]) -> str:
     return f"对象 | {app_name} | {item.get('name', '-')}"
 
 
-def summarize_scope(changes: list[dict[str, Any]]) -> tuple[int, int]:
-    app_ids = {
-        (change.get("current") or change.get("previous") or {}).get("app_id", "")
-        for change in changes
-    }
-    return len([app_id for app_id in app_ids if app_id]), len(changes)
+def primary_app_name(items: list[dict[str, str]]) -> str:
+    ios_names = [item.get("app_name", "").strip() for item in items if item.get("platform") == "IOS" and item.get("app_name", "").strip()]
+    if ios_names:
+        return ios_names[0]
+    other_names = [item.get("app_name", "").strip() for item in items if item.get("app_name", "").strip()]
+    if other_names:
+        return other_names[0]
+    return "-"
 
 
-def group_changes(changes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
-    grouped: dict[str, list[dict[str, Any]]] = {key: [] for key in ENTITY_TYPE_LABELS}
+def group_changes_by_platform(changes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    grouped: dict[str, list[dict[str, Any]]] = {"IOS": [], "ANDROID": []}
     for change in changes:
-        previous = change["previous"]
-        current = change["current"]
-        entity_type = (current or previous or {}).get("entity_type", "UNKNOWN")
-        grouped.setdefault(entity_type, []).append(change)
+        source = change.get("current") or change.get("previous") or {}
+        grouped.setdefault(source.get("platform", "-"), []).append(change)
     return grouped
 
 
-def group_items(items: list[dict[str, str]]) -> dict[str, list[dict[str, str]]]:
-    grouped: dict[str, list[dict[str, str]]] = {key: [] for key in ENTITY_TYPE_LABELS}
+def group_items_by_platform(items: list[dict[str, str]]) -> dict[str, list[dict[str, str]]]:
+    grouped: dict[str, list[dict[str, str]]] = {"IOS": [], "ANDROID": []}
     for item in items:
-        grouped.setdefault(item.get("entity_type", "UNKNOWN"), []).append(item)
+        grouped.setdefault(item.get("platform", "-"), []).append(item)
     return grouped
 
 
-def render_change_line(change: dict[str, Any]) -> str:
-    previous = change["previous"]
-    current = change["current"]
+def entity_label(item: dict[str, str]) -> str:
+    entity_type = item.get("entity_type", "")
+    if entity_type == "APP_VERSION":
+        return f"版本：{item.get('name', '-')}"
+    if entity_type == "CPP":
+        return f"CPP：{item.get('name', '-')} | v{item.get('version', '-')}"
+    if entity_type == "IAE":
+        return f"IAE：{item.get('name', '-')}"
+    return f"对象：{item_label(item)}"
+
+
+def render_change_lines(change: dict[str, Any]) -> list[str]:
+    previous = change.get("previous")
+    current = change.get("current")
     source = current or previous or {}
-    prefix = item_label(source)
+    label_line = entity_label(source)
 
     if previous is None and current is not None:
-        return f"{prefix} | 新增监控 | 当前: {localize_state(current.get('state', 'UNKNOWN'))}"
+        return [
+            label_line,
+            f"新状态：{localize_state(current.get('state', 'UNKNOWN'))}",
+        ]
     if previous is not None and current is None:
-        return f"{prefix} | {localize_state(previous.get('state', 'UNKNOWN'))} -> {localize_state('REMOVED')}"
-    return (
-        f"{prefix} | "
-        f"{localize_state(previous.get('state', 'UNKNOWN'))} -> {localize_state(current.get('state', 'UNKNOWN'))}"
-    )
+        return [
+            label_line,
+            f"旧状态：{localize_state(previous.get('state', 'UNKNOWN'))}",
+            f"新状态：{localize_state('REMOVED')}",
+        ]
+    return [
+        label_line,
+        f"旧状态：{localize_state((previous or {}).get('state', 'UNKNOWN'))}",
+        f"新状态：{localize_state((current or {}).get('state', 'UNKNOWN'))}",
+    ]
 
 
-def render_item_line(item: dict[str, str]) -> str:
-    return f"{item_label(item)} | 当前: {localize_state(item.get('state', 'UNKNOWN'))}"
+def render_item_lines(item: dict[str, str]) -> list[str]:
+    return [
+        entity_label(item),
+        f"新状态：{localize_state(item.get('state', 'UNKNOWN'))}",
+    ]
 
 
 def item_sort_key(item: dict[str, str]) -> tuple[Any, ...]:
@@ -548,18 +570,18 @@ def build_report_rows(settings: Settings, changes: list[dict[str, Any]]) -> list
     if settings.feishu_keyword:
         rows.append([rich_text(settings.feishu_keyword)])
 
-    app_count, change_count = summarize_scope(changes)
-    rows.append([rich_text("审核告警摘要", bold=True)])
-    rows.append([rich_text(f"应用数: {app_count} | 变更数: {change_count}")])
-
-    grouped = group_changes(changes)
-    for entity_type in ("APP_VERSION", "CPP", "IAE"):
-        group_changes_list = sorted(grouped.get(entity_type, []), key=change_sort_key)
-        if not group_changes_list:
-            continue
-        rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_changes_list)} 项", bold=True)])
-        for index, change in enumerate(group_changes_list, start=1):
-            rows.append([rich_text(f"{index}. {render_change_line(change)}")])
+    all_changes = sorted(changes, key=change_sort_key)
+    rows.append([rich_text(primary_app_name([(change.get("current") or change.get("previous") or {}) for change in all_changes]), bold=True)])
+    if all_changes:
+        grouped = group_changes_by_platform(all_changes)
+        for platform in ("IOS", "ANDROID"):
+            platform_changes = sorted(grouped.get(platform, []), key=change_sort_key)
+            if not platform_changes:
+                continue
+            rows.append([rich_text(f"【{platform}】", bold=True)])
+            for change in platform_changes:
+                for line in render_change_lines(change):
+                    rows.append([rich_text(line)])
 
     return rows
 
@@ -569,18 +591,18 @@ def build_snapshot_rows(settings: Settings, items: list[dict[str, str]]) -> list
     if settings.feishu_keyword:
         rows.append([rich_text(settings.feishu_keyword)])
 
-    app_ids = {item.get("app_id", "") for item in items if item.get("app_id", "")}
-    rows.append([rich_text("当前审核概览", bold=True)])
-    rows.append([rich_text(f"应用数: {len(app_ids)} | 对象数: {len(items)}")])
-
-    grouped = group_items(items)
-    for entity_type in ("APP_VERSION", "CPP", "IAE"):
-        group_items_list = sorted(grouped.get(entity_type, []), key=item_sort_key)
-        if not group_items_list:
-            continue
-        rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_items_list)} 项", bold=True)])
-        for index, item in enumerate(group_items_list, start=1):
-            rows.append([rich_text(f"{index}. {render_item_line(item)}")])
+    all_items = sorted(items, key=item_sort_key)
+    rows.append([rich_text(primary_app_name(all_items), bold=True)])
+    if all_items:
+        grouped = group_items_by_platform(all_items)
+        for platform in ("IOS", "ANDROID"):
+            platform_items = sorted(grouped.get(platform, []), key=item_sort_key)
+            if not platform_items:
+                continue
+            rows.append([rich_text(f"【{platform}】", bold=True)])
+            for item in platform_items:
+                for line in render_item_lines(item):
+                    rows.append([rich_text(line)])
 
     return rows
 
@@ -614,10 +636,10 @@ def build_report_lines(settings: Settings, changes: list[dict[str, Any]]) -> lis
     if settings.feishu_keyword:
         lines.append(settings.feishu_keyword)
 
-    lines.append(f"检测到 {len(changes)} 项审核状态变化")
+    lines.append(f"检测到 {len(changes)} 项App审核信息变化")
 
     for change in changes:
-        lines.append(render_change_line(change))
+        lines.extend(render_change_lines(change))
 
     return lines
 
