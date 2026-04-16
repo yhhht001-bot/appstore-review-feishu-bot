@@ -26,7 +26,7 @@
       "bundle_id": "com.taichisenior.yuanqifitness",
       "entity_id": "74c8c5c2-1156-439b-962c-df4053b414cb",
       "entity_type": "APP_VERSION",
-      "name": "1.2.2",
+      "name": "1.3.0",
       "platform": "IOS",
       "state": "PREPARE_FOR_SUBMISSION"
     },
@@ -114,7 +114,7 @@
       "entity_type": "IAE",
       "name": "Tai Chi Walking 0318",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6760737993": {
       "app_id": "6758745743",
@@ -134,7 +134,7 @@
       "entity_type": "IAE",
       "name": "Discount 0318",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6760896474": {
       "app_id": "6758745743",
@@ -157,5 +157,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-04-16T07:59:09.569615+00:00"
+  "updated_at": "2026-04-16T14:11:12.566825+00:00"
 }
