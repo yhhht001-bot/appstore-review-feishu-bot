@@ -72,16 +72,16 @@
       "state": "APPROVED",
       "version": "1"
     },
-    "CPP:d8aff2e3-9513-41e0-80f0-5db79587a0e4": {
+    "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
       "app_id": "6758745743",
       "app_name": "Tai Chi for Seniors Beginners",
       "bundle_id": "com.taichisenior.yuanqifitness",
-      "entity_id": "d8aff2e3-9513-41e0-80f0-5db79587a0e4",
+      "entity_id": "2c5e2d9b-979b-4f18-8698-27216d652efb",
       "entity_type": "CPP",
-      "name": "walking_0420",
-      "parent_id": "e9e83f2f-fc99-46d9-af22-2cf8e3a8a812",
+      "name": "walking_0421",
+      "parent_id": "62153a62-a41e-4866-be8f-410603e34273",
       "platform": "IOS",
-      "state": "PREPARE_FOR_SUBMISSION",
+      "state": "WAITING_FOR_REVIEW",
       "version": "1"
     },
     "IAE:6759826894": {
@@ -145,5 +145,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-04-20T11:48:43.072400+00:00"
+  "updated_at": "2026-04-21T08:04:35.602722+00:00"
 }
