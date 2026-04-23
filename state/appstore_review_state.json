@@ -152,7 +152,7 @@
       "entity_type": "IAE",
       "name": "Challenge",
       "platform": "IOS",
-      "state": "APPROVED"
+      "state": "PUBLISHED"
     },
     "IAE:6763221926": {
       "app_id": "6758745743",
@@ -162,8 +162,8 @@
       "entity_type": "IAE",
       "name": "New Season",
       "platform": "IOS",
-      "state": "APPROVED"
+      "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-04-23T08:07:49.719165+00:00"
+  "updated_at": "2026-04-23T14:16:20.630500+00:00"
 }
