@@ -143,7 +143,27 @@
       "name": "Easter_0325",
       "platform": "IOS",
       "state": "PUBLISHED"
+    },
+    "IAE:6763221631": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6763221631",
+      "entity_type": "IAE",
+      "name": "Challenge",
+      "platform": "IOS",
+      "state": "IN_REVIEW"
+    },
+    "IAE:6763221926": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6763221926",
+      "entity_type": "IAE",
+      "name": "New Season",
+      "platform": "IOS",
+      "state": "APPROVED"
     }
   },
-  "updated_at": "2026-04-23T03:45:40.146075+00:00"
+  "updated_at": "2026-04-23T05:56:30.755866+00:00"
 }
