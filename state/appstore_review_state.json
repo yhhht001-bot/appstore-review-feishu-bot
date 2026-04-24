@@ -93,7 +93,7 @@
       "name": "shotscreen_0424",
       "parent_id": "0551055a-32b9-4a63-8acb-67a3e068b945",
       "platform": "IOS",
-      "state": "IN_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "IAE:6759826894": {
@@ -177,5 +177,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-04-24T12:42:45.183630+00:00"
+  "updated_at": "2026-04-24T14:24:49.467893+00:00"
 }
