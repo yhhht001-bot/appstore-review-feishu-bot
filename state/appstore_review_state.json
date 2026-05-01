@@ -104,7 +104,7 @@
       "entity_type": "IAE",
       "name": "Spring Renewal 0301",
       "platform": "IOS",
-      "state": "PAST"
+      "state": "ARCHIVED"
     },
     "IAE:6760737068": {
       "app_id": "6758745743",
@@ -144,7 +144,7 @@
       "entity_type": "IAE",
       "name": "Tai Chi Meditation 0320",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6761107355": {
       "app_id": "6758745743",
@@ -177,5 +177,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-04-27T03:54:13.305855+00:00"
+  "updated_at": "2026-05-01T00:25:44.125470+00:00"
 }
