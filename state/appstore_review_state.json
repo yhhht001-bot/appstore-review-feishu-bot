@@ -175,7 +175,17 @@
       "name": "New Season",
       "platform": "IOS",
       "state": "PUBLISHED"
+    },
+    "IAE:6767137169": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6767137169",
+      "entity_type": "IAE",
+      "name": "Challenge1",
+      "platform": "IOS",
+      "state": "APPROVED"
     }
   },
-  "updated_at": "2026-05-01T14:55:43.363528+00:00"
+  "updated_at": "2026-05-07T10:24:16.916202+00:00"
 }
