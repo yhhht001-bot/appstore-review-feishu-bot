@@ -28,7 +28,7 @@
       "entity_type": "APP_VERSION",
       "name": "1.3.2",
       "platform": "IOS",
-      "state": "PREPARE_FOR_SUBMISSION"
+      "state": "READY_FOR_REVIEW"
     },
     "APP_VERSION:74c8c5c2-1156-439b-962c-df4053b414cb": {
       "app_id": "6758745743",
@@ -101,7 +101,7 @@
       "name": "taichi_0512",
       "parent_id": "91823200-dc0e-4415-850c-d3901fe18a10",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "REJECTED",
       "version": "1"
     },
     "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
@@ -219,5 +219,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-05-12T10:31:28.555155+00:00"
+  "updated_at": "2026-05-12T14:24:52.761673+00:00"
 }
