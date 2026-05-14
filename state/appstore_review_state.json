@@ -125,7 +125,7 @@
       "name": "walk&chair_0514",
       "parent_id": "ec1ee258-4fec-4747-968e-b6bb0caef9d6",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:c33cafb6-a717-48c1-984f-4c64088971be": {
@@ -231,5 +231,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-05-14T06:46:17.266635+00:00"
+  "updated_at": "2026-05-14T14:11:12.699925+00:00"
 }
