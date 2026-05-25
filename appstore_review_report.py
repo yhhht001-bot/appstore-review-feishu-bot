@@ -435,12 +435,12 @@ def feishu_signature(secret: str) -> tuple[str, str]:
 
 def build_report_title() -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"App Store 状态变更 {now}"
+    return f"App审核信息 {now}"
 
 
 def build_snapshot_title() -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"App 审核概览 {now}"
+    return f"App审核信息概览 {now}"
 
 
 def rich_text(text: str, *, bold: bool = False) -> dict[str, Any]:
@@ -474,37 +474,83 @@ def item_label(item: dict[str, str]) -> str:
     return f"对象 | {app_name} | {item.get('name', '-')}"
 
 
-def group_items(items: list[dict[str, str]]) -> dict[str, list[dict[str, str]]]:
-    grouped: dict[str, list[dict[str, str]]] = {key: [] for key in ENTITY_TYPE_LABELS}
-    for item in items:
-        grouped.setdefault(item.get("entity_type", "UNKNOWN"), []).append(item)
+def primary_app_name(items: list[dict[str, str]]) -> str:
+    ios_names = [item.get("app_name", "").strip() for item in items if item.get("platform") == "IOS" and item.get("app_name", "").strip()]
+    if ios_names:
+        return ios_names[0]
+    other_names = [item.get("app_name", "").strip() for item in items if item.get("app_name", "").strip()]
+    if other_names:
+        return other_names[0]
+    return "-"
+
+
+def app_summary_label(items: list[dict[str, str]]) -> str:
+    app_names = sorted({item.get("app_name", "").strip() for item in items if item.get("app_name", "").strip()})
+    if not app_names:
+        return "-"
+    if len(app_names) == 1:
+        return app_names[0]
+    if len(app_names) <= 3:
+        return " / ".join(app_names)
+    return f"{len(app_names)} 个 App"
+
+
+def group_changes_by_platform(changes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    grouped: dict[str, list[dict[str, Any]]] = {"IOS": [], "ANDROID": []}
+    for change in changes:
+        source = change.get("current") or change.get("previous") or {}
+        grouped.setdefault(source.get("platform", "-"), []).append(change)
     return grouped
 
 
-def report_previous_state(previous: dict[str, str] | None) -> str:
-    if previous is None:
-        return "无"
-    return previous.get("state", "").strip() or "UNKNOWN"
+def group_items_by_platform(items: list[dict[str, str]]) -> dict[str, list[dict[str, str]]]:
+    grouped: dict[str, list[dict[str, str]]] = {"IOS": [], "ANDROID": []}
+    for item in items:
+        grouped.setdefault(item.get("platform", "-"), []).append(item)
+    return grouped
 
 
-def report_next_state(current: dict[str, str] | None) -> str:
-    if current is None:
-        return "REMOVED"
-    return current.get("state", "").strip() or "UNKNOWN"
+def entity_label(item: dict[str, str]) -> str:
+    entity_type = item.get("entity_type", "")
+    app_name = item.get("app_name", "-")
+    if entity_type == "APP_VERSION":
+        return f"[{app_name}] 版本：{item.get('name', '-')}"
+    if entity_type == "CPP":
+        return f"[{app_name}] CPP：{item.get('name', '-')} | v{item.get('version', '-')}"
+    if entity_type == "IAE":
+        return f"[{app_name}] IAE：{item.get('name', '-')}"
+    return f"对象：{item_label(item)}"
 
 
-def render_change_block(change: dict[str, Any]) -> list[str]:
-    source = change.get("current") or change.get("previous") or {}
+def render_change_lines(change: dict[str, Any]) -> list[str]:
+    previous = change.get("previous")
+    current = change.get("current")
+    source = current or previous or {}
+    label_line = entity_label(source)
+
+    if previous is None and current is not None:
+        return [
+            label_line,
+            f"新状态：{localize_state(current.get('state', 'UNKNOWN'))}",
+        ]
+    if previous is not None and current is None:
+        return [
+            label_line,
+            f"旧状态：{localize_state(previous.get('state', 'UNKNOWN'))}",
+            f"新状态：{localize_state('REMOVED')}",
+        ]
     return [
-        "App Store 状态变更",
-        f"对象：{item_label(source)}",
-        f"旧状态：{report_previous_state(change.get('previous'))}",
-        f"新状态：{report_next_state(change.get('current'))}",
+        label_line,
+        f"旧状态：{localize_state((previous or {}).get('state', 'UNKNOWN'))}",
+        f"新状态：{localize_state((current or {}).get('state', 'UNKNOWN'))}",
     ]
 
 
-def render_item_line(item: dict[str, str]) -> str:
-    return f"{item_label(item)} | 当前: {localize_state(item.get('state', 'UNKNOWN'))}"
+def render_item_lines(item: dict[str, str]) -> list[str]:
+    return [
+        entity_label(item),
+        f"新状态：{localize_state(item.get('state', 'UNKNOWN'))}",
+    ]
 
 
 def item_sort_key(item: dict[str, str]) -> tuple[Any, ...]:
@@ -536,12 +582,19 @@ def build_report_rows(settings: Settings, changes: list[dict[str, Any]]) -> list
     if settings.feishu_keyword:
         rows.append([rich_text(settings.feishu_keyword)])
 
-    sorted_changes = sorted(changes, key=change_sort_key)
-    for index, change in enumerate(sorted_changes):
-        for line in render_change_block(change):
-            rows.append([rich_text(line)])
-        if index != len(sorted_changes) - 1:
-            rows.append([rich_text("")])
+    all_changes = sorted(changes, key=change_sort_key)
+    summary_items = [(change.get("current") or change.get("previous") or {}) for change in all_changes]
+    rows.append([rich_text(app_summary_label(summary_items), bold=True)])
+    if all_changes:
+        grouped = group_changes_by_platform(all_changes)
+        for platform in ("IOS", "ANDROID"):
+            platform_changes = sorted(grouped.get(platform, []), key=change_sort_key)
+            if not platform_changes:
+                continue
+            rows.append([rich_text(f"【{platform}】", bold=True)])
+            for change in platform_changes:
+                for line in render_change_lines(change):
+                    rows.append([rich_text(line)])
 
     return rows
 
@@ -551,18 +604,18 @@ def build_snapshot_rows(settings: Settings, items: list[dict[str, str]]) -> list
     if settings.feishu_keyword:
         rows.append([rich_text(settings.feishu_keyword)])
 
-    app_ids = {item.get("app_id", "") for item in items if item.get("app_id", "")}
-    rows.append([rich_text("当前审核概览", bold=True)])
-    rows.append([rich_text(f"应用数: {len(app_ids)} | 对象数: {len(items)}")])
-
-    grouped = group_items(items)
-    for entity_type in ("APP_VERSION", "CPP", "IAE"):
-        group_items_list = sorted(grouped.get(entity_type, []), key=item_sort_key)
-        if not group_items_list:
-            continue
-        rows.append([rich_text(f"【{ENTITY_TYPE_LABELS.get(entity_type, entity_type)}】{len(group_items_list)} 项", bold=True)])
-        for index, item in enumerate(group_items_list, start=1):
-            rows.append([rich_text(f"{index}. {render_item_line(item)}")])
+    all_items = sorted(items, key=item_sort_key)
+    rows.append([rich_text(app_summary_label(all_items), bold=True)])
+    if all_items:
+        grouped = group_items_by_platform(all_items)
+        for platform in ("IOS", "ANDROID"):
+            platform_items = sorted(grouped.get(platform, []), key=item_sort_key)
+            if not platform_items:
+                continue
+            rows.append([rich_text(f"【{platform}】", bold=True)])
+            for item in platform_items:
+                for line in render_item_lines(item):
+                    rows.append([rich_text(line)])
 
     return rows
 
@@ -596,11 +649,10 @@ def build_report_lines(settings: Settings, changes: list[dict[str, Any]]) -> lis
     if settings.feishu_keyword:
         lines.append(settings.feishu_keyword)
 
-    sorted_changes = sorted(changes, key=change_sort_key)
-    for index, change in enumerate(sorted_changes):
-        lines.extend(render_change_block(change))
-        if index != len(sorted_changes) - 1:
-            lines.append("")
+    lines.append(f"检测到 {len(changes)} 项App审核信息变化")
+
+    for change in changes:
+        lines.extend(render_change_lines(change))
 
     return lines
 
