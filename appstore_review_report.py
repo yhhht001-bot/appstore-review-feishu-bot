@@ -273,6 +273,27 @@ def normalize_app_event(app: dict[str, Any], event: dict[str, Any]) -> dict[str,
     }
 
 
+def relationship_resource_id(resource: dict[str, Any], relationship_name: str) -> str:
+    relationships = resource.get("relationships") or {}
+    relationship = relationships.get(relationship_name) or {}
+    data = relationship.get("data")
+    if isinstance(data, dict):
+        return str(data.get("id", "")).strip()
+    if isinstance(data, list) and data:
+        first_item = data[0]
+        if isinstance(first_item, dict):
+            return str(first_item.get("id", "")).strip()
+    return ""
+
+
+def app_event_app_id(event: dict[str, Any]) -> str:
+    for relationship_name in ("app", "apps"):
+        related_app_id = relationship_resource_id(event, relationship_name)
+        if related_app_id:
+            return related_app_id
+    return ""
+
+
 def normalize_custom_product_page_versions(
     app: dict[str, Any],
     page: dict[str, Any],
@@ -318,7 +339,11 @@ def collect_review_items(settings: Settings) -> list[dict[str, str]]:
         review_items.extend(normalize_app_version(app, version) for version in versions)
 
         app_events = fetch_app_events(settings, headers, app_id)
-        review_items.extend(normalize_app_event(app, event) for event in app_events)
+        for event in app_events:
+            related_app_id = app_event_app_id(event)
+            if related_app_id and related_app_id != app_id:
+                continue
+            review_items.append(normalize_app_event(app, event))
 
         cpp_pages = fetch_custom_product_pages(settings, headers, app_id)
         for cpp_page in cpp_pages:
