@@ -68,7 +68,7 @@
       "entity_type": "APP_VERSION",
       "name": "1.0.0",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     },
     "APP_VERSION:9200df2b-b864-47fc-b8a7-eec76d5bcbd9": {
       "app_id": "6758745743",
@@ -106,7 +106,7 @@
       "bundle_id": "com.taichisenior.yuanqifitness",
       "entity_id": "bbbb0f44-adf7-4129-9b79-f7ed71f91706",
       "entity_type": "APP_VERSION",
-      "name": "1.3.4",
+      "name": "1.4.0",
       "platform": "IOS",
       "state": "PREPARE_FOR_SUBMISSION"
     },
@@ -303,5 +303,5 @@
       "state": "APPROVED"
     }
   },
-  "updated_at": "2026-05-26T15:26:53.909467+00:00"
+  "updated_at": "2026-05-27T08:03:37.435724+00:00"
 }
