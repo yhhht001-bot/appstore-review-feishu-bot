@@ -68,7 +68,7 @@
       "entity_type": "APP_VERSION",
       "name": "1.0.0",
       "platform": "IOS",
-      "state": "PENDING_DEVELOPER_RELEASE"
+      "state": "READY_FOR_SALE / READY_FOR_DISTRIBUTION"
     },
     "APP_VERSION:9200df2b-b864-47fc-b8a7-eec76d5bcbd9": {
       "app_id": "6758745743",
@@ -242,7 +242,7 @@
       "entity_type": "IAE",
       "name": "Tai Chi Meditation 0320",
       "platform": "IOS",
-      "state": "PAST"
+      "state": "ARCHIVED"
     },
     "IAE:6761107355": {
       "app_id": "6758745743",
@@ -302,7 +302,7 @@
       "entity_type": "IAE",
       "name": "Challenge11",
       "platform": "IOS",
-      "state": "APPROVED"
+      "state": "PUBLISHED"
     },
     "IAE:6773194699": {
       "app_id": "6758745743",
@@ -312,8 +312,8 @@
       "entity_type": "IAE",
       "name": "Challenge12",
       "platform": "IOS",
-      "state": "APPROVED"
+      "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-05-29T11:31:05.086314+00:00"
+  "updated_at": "2026-05-29T15:30:15.865307+00:00"
 }
