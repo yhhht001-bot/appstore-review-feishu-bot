@@ -292,7 +292,7 @@
       "entity_type": "IAE",
       "name": "Challenge",
       "platform": "IOS",
-      "state": "IN_REVIEW"
+      "state": "APPROVED"
     },
     "IAE:6773193853": {
       "app_id": "6758745743",
@@ -315,5 +315,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-05-29T18:32:42.726206+00:00"
+  "updated_at": "2026-05-29T21:51:57.401384+00:00"
 }
