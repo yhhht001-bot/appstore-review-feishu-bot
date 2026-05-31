@@ -252,7 +252,7 @@
       "entity_type": "IAE",
       "name": "Easter_0325",
       "platform": "IOS",
-      "state": "PAST"
+      "state": "ARCHIVED"
     },
     "IAE:6763221631": {
       "app_id": "6758745743",
@@ -315,5 +315,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-05-31T13:44:21.402701+00:00"
+  "updated_at": "2026-05-31T15:17:22.768025+00:00"
 }
