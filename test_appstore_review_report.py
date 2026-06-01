@@ -82,5 +82,50 @@ class CollectReviewItemsTests(unittest.TestCase):
         self.assertEqual([item["name"] for item in app_b_events], ["Challenge12"])
 
 
+class MessageGroupingTests(unittest.TestCase):
+    def test_build_report_rows_groups_changes_by_app_within_platform(self) -> None:
+        settings = report.Settings(
+            asc_issuer_id="issuer",
+            asc_key_id="key",
+            asc_private_key_path="unused.p8",
+            feishu_webhook_url="https://example.com",
+            feishu_secret="",
+            feishu_keyword="",
+            asc_api_base_url="https://api.example.com",
+            asc_app_ids=(),
+            state_file_path="./.state/test.json",
+            sandbox_mode=False,
+        )
+        changes = [
+            {
+                "previous": {"entity_type": "APP_VERSION", "app_name": "Chair Yoga & Tai Chi Walking", "platform": "IOS", "name": "1.0.0", "state": "PENDING_DEVELOPER_RELEASE"},
+                "current": {"entity_type": "APP_VERSION", "app_name": "Chair Yoga & Tai Chi Walking", "platform": "IOS", "name": "1.0.0", "state": "READY_FOR_SALE / READY_FOR_DISTRIBUTION"},
+            },
+            {
+                "previous": {"entity_type": "IAE", "app_name": "Other App", "platform": "IOS", "name": "Challenge12", "state": "APPROVED"},
+                "current": {"entity_type": "IAE", "app_name": "Other App", "platform": "IOS", "name": "Challenge12", "state": "PUBLISHED"},
+            },
+        ]
+
+        rows = report.build_report_rows(settings, changes)
+        texts = [row[0]["text"] for row in rows]
+
+        self.assertEqual(
+            texts,
+            [
+                "Chair Yoga & Tai Chi Walking / Other App",
+                "【IOS】",
+                "Chair Yoga & Tai Chi Walking",
+                "[Chair Yoga & Tai Chi Walking] 版本：1.0.0",
+                "旧状态：待开发者发布",
+                "新状态：可销售 / 可分发",
+                "Other App",
+                "[Other App] IAE：Challenge12",
+                "旧状态：已通过",
+                "新状态：已发布",
+            ],
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -535,6 +535,23 @@ def group_items_by_platform(items: list[dict[str, str]]) -> dict[str, list[dict[
     return grouped
 
 
+def group_items_by_app(items: list[dict[str, str]]) -> list[tuple[str, list[dict[str, str]]]]:
+    grouped: dict[str, list[dict[str, str]]] = {}
+    for item in items:
+        app_name = item.get("app_name", "").strip() or "-"
+        grouped.setdefault(app_name, []).append(item)
+    return sorted(grouped.items(), key=lambda pair: pair[0])
+
+
+def group_changes_by_app(changes: list[dict[str, Any]]) -> list[tuple[str, list[dict[str, Any]]]]:
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for change in changes:
+        source = change.get("current") or change.get("previous") or {}
+        app_name = str(source.get("app_name", "")).strip() or "-"
+        grouped.setdefault(app_name, []).append(change)
+    return sorted(grouped.items(), key=lambda pair: pair[0])
+
+
 def entity_label(item: dict[str, str]) -> str:
     entity_type = item.get("entity_type", "")
     app_name = item.get("app_name", "-")
@@ -617,9 +634,11 @@ def build_report_rows(settings: Settings, changes: list[dict[str, Any]]) -> list
             if not platform_changes:
                 continue
             rows.append([rich_text(f"【{platform}】", bold=True)])
-            for change in platform_changes:
-                for line in render_change_lines(change):
-                    rows.append([rich_text(line)])
+            for app_name, app_changes in group_changes_by_app(platform_changes):
+                rows.append([rich_text(app_name, bold=True)])
+                for change in sorted(app_changes, key=change_sort_key):
+                    for line in render_change_lines(change):
+                        rows.append([rich_text(line)])
 
     return rows
 
@@ -638,9 +657,11 @@ def build_snapshot_rows(settings: Settings, items: list[dict[str, str]]) -> list
             if not platform_items:
                 continue
             rows.append([rich_text(f"【{platform}】", bold=True)])
-            for item in platform_items:
-                for line in render_item_lines(item):
-                    rows.append([rich_text(line)])
+            for app_name, app_items in group_items_by_app(platform_items):
+                rows.append([rich_text(app_name, bold=True)])
+                for item in sorted(app_items, key=item_sort_key):
+                    for line in render_item_lines(item):
+                        rows.append([rich_text(line)])
 
     return rows
 
