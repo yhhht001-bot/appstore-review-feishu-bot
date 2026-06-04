@@ -322,8 +322,8 @@
       "entity_type": "IAE",
       "name": "New Season",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     }
   },
-  "updated_at": "2026-06-04T03:58:30.099164+00:00"
+  "updated_at": "2026-06-04T08:24:32.335042+00:00"
 }
