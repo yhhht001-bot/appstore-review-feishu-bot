@@ -332,8 +332,8 @@
       "entity_type": "IAE",
       "name": "Challenge1",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     }
   },
-  "updated_at": "2026-06-04T12:44:23.740188+00:00"
+  "updated_at": "2026-06-04T16:53:52.860608+00:00"
 }
