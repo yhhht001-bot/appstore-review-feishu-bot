@@ -40,6 +40,16 @@
       "platform": "IOS",
       "state": "READY_FOR_SALE / READY_FOR_DISTRIBUTION"
     },
+    "APP_VERSION:6963543b-6af3-4fc2-9ec2-e2d49373873d": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga & Tai Chi Walking",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6963543b-6af3-4fc2-9ec2-e2d49373873d",
+      "entity_type": "APP_VERSION",
+      "name": "1.0.1",
+      "platform": "IOS",
+      "state": "PREPARE_FOR_SUBMISSION"
+    },
     "APP_VERSION:74c8c5c2-1156-439b-962c-df4053b414cb": {
       "app_id": "6758745743",
       "app_name": "Tai Chi for Seniors Beginners",
@@ -314,16 +324,16 @@
       "platform": "IOS",
       "state": "PUBLISHED"
     },
-    "IAE:6776077592": {
+    "IAE:6776585615": {
       "app_id": "6767155434",
       "app_name": "Chair Yoga & Tai Chi Walking",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
-      "entity_id": "6776077592",
+      "entity_id": "6776585615",
       "entity_type": "IAE",
-      "name": "New Season",
+      "name": "Challenge1",
       "platform": "IOS",
-      "state": "IN_REVIEW"
+      "state": "WAITING_FOR_REVIEW"
     }
   },
-  "updated_at": "2026-06-04T08:24:32.335042+00:00"
+  "updated_at": "2026-06-04T12:44:23.740188+00:00"
 }
