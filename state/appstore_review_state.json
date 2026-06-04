@@ -320,10 +320,10 @@
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6776077592",
       "entity_type": "IAE",
-      "name": "Major Update",
+      "name": "New Season",
       "platform": "IOS",
-      "state": "REJECTED"
+      "state": "WAITING_FOR_REVIEW"
     }
   },
-  "updated_at": "2026-06-03T16:48:10.154653+00:00"
+  "updated_at": "2026-06-04T03:58:30.099164+00:00"
 }
