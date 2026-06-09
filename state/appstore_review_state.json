@@ -201,7 +201,7 @@
       "name": "default_0609",
       "parent_id": "31c0e02b-0c0c-40ec-91b3-ef9cde7651ca",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "IAE:6759826894": {
@@ -345,5 +345,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-06-09T11:14:34.290262+00:00"
+  "updated_at": "2026-06-09T14:49:59.896658+00:00"
 }
