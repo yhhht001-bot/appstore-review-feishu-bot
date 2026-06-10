@@ -118,7 +118,7 @@
       "entity_type": "APP_VERSION",
       "name": "1.4.0",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "READY_FOR_SALE / READY_FOR_DISTRIBUTION"
     },
     "APP_VERSION:d5132667-79f1-4eeb-b3c7-26fb0dde7059": {
       "app_id": "6767155434",
@@ -128,7 +128,7 @@
       "entity_type": "APP_VERSION",
       "name": "1.1.1",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "PENDING_DEVELOPER_RELEASE"
     },
     "CPP:0a9fccb1-a935-499d-9828-ba2585378105": {
       "app_id": "6758745743",
@@ -355,5 +355,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-06-10T12:56:38.842736+00:00"
+  "updated_at": "2026-06-10T20:29:42.483548+00:00"
 }
