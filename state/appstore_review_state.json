@@ -372,8 +372,8 @@
       "entity_type": "IAE",
       "name": "watch",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     }
   },
-  "updated_at": "2026-06-11T08:48:45.094917+00:00"
+  "updated_at": "2026-06-11T13:59:14.273977+00:00"
 }
