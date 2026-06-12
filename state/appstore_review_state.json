@@ -159,7 +159,7 @@
       "name": "Default_Section2_0611",
       "parent_id": "833597cf-ca8c-4219-87d7-a4e232fa7332",
       "platform": "IOS",
-      "state": "IN_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:0938c922-efbc-494a-85d3-6996b0a7fb0d": {
@@ -375,5 +375,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-06-12T08:26:46.176451+00:00"
+  "updated_at": "2026-06-12T20:10:28.457571+00:00"
 }
