@@ -373,7 +373,17 @@
       "name": "watch",
       "platform": "IOS",
       "state": "PUBLISHED"
+    },
+    "IAE:6780793576": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6780793576",
+      "entity_type": "IAE",
+      "name": "Challenge3",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW"
     }
   },
-  "updated_at": "2026-06-12T20:10:28.457571+00:00"
+  "updated_at": "2026-06-16T11:09:39.747641+00:00"
 }
