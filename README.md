@@ -1,25 +1,28 @@
 # App Store Connect 审核飞书机器人
 
-这个项目会轮询 App Store Connect，并且只在检测到审核状态变化时发送飞书消息。
+这个项目会轮询 App Store Connect 和 Google Play，并且只在检测到审核状态变化时发送飞书消息。
 
 当前监听范围：
 
 - App 版本审核状态
 - CPP（Custom Product Pages，自定义产品页）审核状态
 - IAE（In-App Events，App 内活动）审核状态
+- Google Play 正式轨道版本发布状态
 
 ## 运行逻辑
 
 1. 使用 App Store Connect API Key 生成 JWT
-2. 拉取账号下 App 列表
-3. 分别拉取每个 App 的版本、CPP、IAE 数据
-4. 和上一次状态快照做对比
-5. 只有检测到状态变化时，才发飞书
-6. 发送成功后，把最新状态快照保存到 `bot-state` 分支
+2. 使用 Google service account 获取 Google Play API 访问令牌
+3. 拉取账号下 App 列表
+4. 分别拉取每个 App 的版本、CPP、IAE 数据
+5. 拉取 Google Play 正式轨道发布状态数据
+6. 和上一次状态快照做对比
+7. 只有检测到状态变化时，才发飞书
+8. 发送成功后，把最新状态快照保存到 `bot-state` 分支
 
 ## 重要说明
 
-Apple 这类审核状态并不能直接把所有变化主动推送到 GitHub Actions。
+Apple / Google Play 这类状态并不能直接把所有变化主动推送到 GitHub Actions。
 
 所以这个项目采用的是：
 
@@ -37,7 +40,7 @@ Apple 这类审核状态并不能直接把所有变化主动推送到 GitHub Act
 
 第一次运行时，脚本会先建立一份状态快照，不发送消息。
 
-从第二次开始，只要版本、CPP、IAE 的状态发生变化，就会立刻在下一次轮询时发送。
+从第二次开始，只要版本、CPP、IAE 或 Google Play 正式轨道状态发生变化，就会立刻在下一次轮询时发送。
 
 ## 需要配置的 GitHub Secrets
 
@@ -54,12 +57,16 @@ Apple 这类审核状态并不能直接把所有变化主动推送到 GitHub Act
 - `FEISHU_SECRET`
 - `FEISHU_KEYWORD`
 - `ASC_APP_IDS`
+- `GPLAY_SERVICE_ACCOUNT_JSON`
+- `GPLAY_PACKAGE_NAMES`
 
 说明：
 
 - `ASC_PRIVATE_KEY` 填 `.p8` 私钥全文
 - `ASC_APP_IDS` 可留空，留空时会拉取账号下所有 App
 - 如果只想监听指定多个 App，填逗号分隔的 App ID，例如 `1234567890,0987654321`
+- `GPLAY_SERVICE_ACCOUNT_JSON` 填 Google service account JSON 全文
+- `GPLAY_PACKAGE_NAMES` 填要监听的 Android package name，多个用逗号分隔
 - `FEISHU_SECRET`、`FEISHU_KEYWORD` 没开就留空
 
 ## 本地测试
@@ -88,6 +95,7 @@ SANDBOX_MODE=true python appstore_review_report.py
 沙盒模式特点：
 
 - 不访问 App Store Connect
+- 不访问 Google Play
 - 不调用飞书 webhook
 - 第一次运行只初始化状态
 - 第二次开始按状态差异输出模拟结果
@@ -104,6 +112,8 @@ SANDBOX_MODE=true python appstore_review_report.py
 - `FEISHU_KEYWORD`
 - `ASC_API_BASE_URL`
 - `ASC_APP_IDS`
+- `GPLAY_SERVICE_ACCOUNT_JSON_PATH`
+- `GPLAY_PACKAGE_NAMES`
 - `STATE_FILE_PATH`
 - `SANDBOX_MODE`
 
@@ -130,6 +140,10 @@ App审核信息 2026-04-01 21:10
 [My Other App] CPP：spring_hero | v2
 旧状态：等待审核
 新状态：已通过
+【ANDROID】
+[com.example.app] Google Play：1.2.3 | production | 100001
+旧状态：发布中
+新状态：已发布
 ```
 
 ## 注意事项
@@ -137,3 +151,5 @@ App审核信息 2026-04-01 21:10
 - 飞书 webhook 泄露后要立即重新生成
 - 如果飞书开启关键词校验，消息正文必须包含关键词
 - 这个项目当前不是 Apple 官方直连回调，而是“云端轮询 + 变化才发”
+- Google Play 当前只监控正式轨道
+- Google Play 当前发送的是版本发布状态，不是 Play Console UI 里的人工审核详情

@@ -1,10 +1,23 @@
 import sys
+import tempfile
 import types
 import unittest
 from unittest import mock
 
 sys.modules.setdefault("jwt", types.SimpleNamespace(encode=lambda *args, **kwargs: "token"))
 sys.modules.setdefault("requests", types.SimpleNamespace())
+sys.modules.setdefault("google", types.ModuleType("google"))
+sys.modules.setdefault("google.auth", types.ModuleType("google.auth"))
+sys.modules.setdefault("google.auth.transport", types.ModuleType("google.auth.transport"))
+sys.modules.setdefault(
+    "google.auth.transport.requests",
+    types.SimpleNamespace(Request=lambda *args, **kwargs: object()),
+)
+sys.modules.setdefault("google.oauth2", types.ModuleType("google.oauth2"))
+sys.modules.setdefault(
+    "google.oauth2.service_account",
+    types.SimpleNamespace(Credentials=types.SimpleNamespace(from_service_account_file=lambda *args, **kwargs: object())),
+)
 
 import appstore_review_report as report
 
@@ -48,6 +61,8 @@ class CollectReviewItemsTests(unittest.TestCase):
             feishu_keyword="",
             asc_api_base_url="https://api.example.com",
             asc_app_ids=(),
+            gplay_service_account_json_path="./google_play_service_account.json",
+            gplay_package_names=(),
             state_file_path="./.state/test.json",
             sandbox_mode=False,
         )
@@ -72,6 +87,8 @@ class CollectReviewItemsTests(unittest.TestCase):
             report, "fetch_custom_product_page_versions", return_value=[]
         ), mock.patch.object(
             report, "fetch_app_events", side_effect=fake_fetch_app_events
+        ), mock.patch.object(
+            report, "collect_google_play_items", return_value=[]
         ):
             items = report.collect_review_items(settings)
 
@@ -80,6 +97,56 @@ class CollectReviewItemsTests(unittest.TestCase):
 
         self.assertEqual([item["name"] for item in app_a_events], ["Challenge11"])
         self.assertEqual([item["name"] for item in app_b_events], ["Challenge12"])
+
+    def test_collect_google_play_items_reads_production_releases(self) -> None:
+        with tempfile.NamedTemporaryFile() as service_account_file:
+            settings = report.Settings(
+                asc_issuer_id="issuer",
+                asc_key_id="key",
+                asc_private_key_path="unused.p8",
+                feishu_webhook_url="https://example.com",
+                feishu_secret="",
+                feishu_keyword="",
+                asc_api_base_url="https://api.example.com",
+                asc_app_ids=(),
+                gplay_service_account_json_path=service_account_file.name,
+                gplay_package_names=("com.example.app",),
+                state_file_path="./.state/test.json",
+                sandbox_mode=False,
+            )
+
+            tracks = [
+                {
+                    "track": "internal",
+                    "releases": [{"name": "1.0.0", "status": "completed", "versionCodes": ["100"]}],
+                },
+                {
+                    "track": "production",
+                    "releases": [{"name": "1.2.3", "status": "inProgress", "versionCodes": ["123"], "userFraction": 0.5}],
+                },
+            ]
+            with mock.patch.object(report, "build_google_play_headers", return_value={"Authorization": "Bearer token"}), mock.patch.object(
+                report, "fetch_google_play_tracks", return_value=tracks
+            ):
+                items = report.collect_google_play_items(settings)
+
+        self.assertEqual(len(items), 1)
+        self.assertEqual(
+            items[0],
+            {
+                "entity_type": "GOOGLE_PLAY_RELEASE",
+                "entity_id": "com.example.app:production:123",
+                "app_id": "com.example.app",
+                "app_name": "com.example.app",
+                "bundle_id": "com.example.app",
+                "name": "1.2.3",
+                "platform": "ANDROID",
+                "state": "inProgress",
+                "track": "production",
+                "version": "123",
+                "rollout": "50%",
+            },
+        )
 
 
 class MessageGroupingTests(unittest.TestCase):
@@ -93,6 +160,8 @@ class MessageGroupingTests(unittest.TestCase):
             feishu_keyword="",
             asc_api_base_url="https://api.example.com",
             asc_app_ids=(),
+            gplay_service_account_json_path="./google_play_service_account.json",
+            gplay_package_names=(),
             state_file_path="./.state/test.json",
             sandbox_mode=False,
         )

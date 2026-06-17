@@ -11,13 +11,17 @@ from typing import Any
 
 import jwt
 import requests
+from google.auth.transport.requests import Request as GoogleAuthRequest
+from google.oauth2 import service_account
 
 
 ASC_AUD = "appstoreconnect-v1"
+GOOGLE_PLAY_SCOPE = "https://www.googleapis.com/auth/androidpublisher"
 ENTITY_TYPE_LABELS = {
     "APP_VERSION": "版本审核",
     "CPP": "CPP 审核",
     "IAE": "IAE 审核",
+    "GOOGLE_PLAY_RELEASE": "Google Play 发布",
 }
 STATE_PRIORITY = {
     "REJECTED": 0,
@@ -38,6 +42,10 @@ STATE_PRIORITY = {
     "READY_FOR_DISTRIBUTION": 15,
     "PAST": 16,
     "REMOVED": 17,
+    "draft": 18,
+    "inProgress": 19,
+    "halted": 20,
+    "completed": 21,
 }
 STATE_LABELS = {
     "APPROVED": "已通过",
@@ -54,6 +62,10 @@ STATE_LABELS = {
     "REMOVED": "已移除",
     "WAITING_FOR_EXPORT_COMPLIANCE": "等待出口合规",
     "WAITING_FOR_REVIEW": "等待审核",
+    "draft": "草稿",
+    "inProgress": "发布中",
+    "halted": "已暂停",
+    "completed": "已发布",
 }
 
 
@@ -67,6 +79,8 @@ class Settings:
     feishu_keyword: str
     asc_api_base_url: str
     asc_app_ids: tuple[str, ...]
+    gplay_service_account_json_path: str
+    gplay_package_names: tuple[str, ...]
     state_file_path: str
     sandbox_mode: bool
 
@@ -119,6 +133,8 @@ def load_settings() -> Settings:
         feishu_keyword=os.getenv("FEISHU_KEYWORD", "").strip(),
         asc_api_base_url=os.getenv("ASC_API_BASE_URL", "https://api.appstoreconnect.apple.com").strip(),
         asc_app_ids=csv_env("ASC_APP_IDS"),
+        gplay_service_account_json_path=os.getenv("GPLAY_SERVICE_ACCOUNT_JSON_PATH", "./google_play_service_account.json").strip(),
+        gplay_package_names=csv_env("GPLAY_PACKAGE_NAMES"),
         state_file_path=os.getenv("STATE_FILE_PATH", "./.state/appstore_review_state.json").strip(),
         sandbox_mode=sandbox_mode,
     )
@@ -325,6 +341,120 @@ def normalize_custom_product_page_versions(
     return normalized
 
 
+def build_google_play_headers(service_account_json_path: str) -> dict[str, str]:
+    credentials = service_account.Credentials.from_service_account_file(
+        service_account_json_path,
+        scopes=[GOOGLE_PLAY_SCOPE],
+    )
+    credentials.refresh(GoogleAuthRequest())
+    return {
+        "Authorization": f"Bearer {credentials.token}",
+        "Content-Type": "application/json",
+    }
+
+
+def create_google_play_edit(headers: dict[str, str], package_name: str) -> str:
+    response = requests.post(
+        f"https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{package_name}/edits",
+        headers=headers,
+        json={},
+        timeout=30,
+    )
+    if not response.ok:
+        raise RuntimeError(f"创建 Google Play edit 失败: package={package_name}, status={response.status_code}, body={response.text}")
+
+    payload = response.json()
+    edit_id = str(payload.get("id", "")).strip()
+    if not edit_id:
+        raise RuntimeError(f"Google Play edit 返回缺少 id: package={package_name}, body={response.text}")
+    return edit_id
+
+
+def delete_google_play_edit(headers: dict[str, str], package_name: str, edit_id: str) -> None:
+    response = requests.delete(
+        f"https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{package_name}/edits/{edit_id}",
+        headers=headers,
+        timeout=30,
+    )
+    if response.status_code not in (200, 204, 404):
+        raise RuntimeError(
+            f"删除 Google Play edit 失败: package={package_name}, edit_id={edit_id}, "
+            f"status={response.status_code}, body={response.text}"
+        )
+
+
+def fetch_google_play_tracks(headers: dict[str, str], package_name: str) -> list[dict[str, Any]]:
+    edit_id = create_google_play_edit(headers, package_name)
+    try:
+        response = requests.get(
+            f"https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{package_name}/edits/{edit_id}/tracks",
+            headers=headers,
+            timeout=30,
+        )
+        if not response.ok:
+            raise RuntimeError(
+                f"获取 Google Play tracks 失败: package={package_name}, status={response.status_code}, body={response.text}"
+            )
+
+        payload = response.json()
+        tracks = payload.get("tracks")
+        return tracks if isinstance(tracks, list) else []
+    finally:
+        delete_google_play_edit(headers, package_name, edit_id)
+
+
+def normalize_google_play_release(package_name: str, track: dict[str, Any], release: dict[str, Any]) -> dict[str, str]:
+    track_name = str(track.get("track", "")).strip() or "-"
+    release_name = str(release.get("name", "")).strip() or "-"
+    status = str(release.get("status", "")).strip() or "UNKNOWN"
+    version_codes = sorted(str(code).strip() for code in release.get("versionCodes", []) if str(code).strip())
+    version_codes_label = ",".join(version_codes) if version_codes else "-"
+    user_fraction = release.get("userFraction")
+    rollout = f"{float(user_fraction) * 100:.0f}%" if isinstance(user_fraction, (int, float)) else "-"
+
+    return {
+        "entity_type": "GOOGLE_PLAY_RELEASE",
+        "entity_id": f"{package_name}:{track_name}:{version_codes_label}",
+        "app_id": package_name,
+        "app_name": package_name,
+        "bundle_id": package_name,
+        "name": release_name,
+        "platform": "ANDROID",
+        "state": status,
+        "track": track_name,
+        "version": version_codes_label,
+        "rollout": rollout,
+    }
+
+
+def collect_google_play_items(settings: Settings) -> list[dict[str, str]]:
+    if not settings.gplay_package_names:
+        return []
+
+    service_account_json_path = Path(settings.gplay_service_account_json_path)
+    if not service_account_json_path.exists():
+        raise RuntimeError(f"Google Play service account 文件不存在: {service_account_json_path}")
+
+    headers = build_google_play_headers(str(service_account_json_path))
+    review_items: list[dict[str, str]] = []
+
+    for package_name in settings.gplay_package_names:
+        tracks = fetch_google_play_tracks(headers, package_name)
+        for track in tracks:
+            track_name = str(track.get("track", "")).strip()
+            if track_name != "production":
+                continue
+            releases = track.get("releases")
+            if not isinstance(releases, list):
+                continue
+            for release in releases:
+                if not isinstance(release, dict):
+                    continue
+                review_items.append(normalize_google_play_release(package_name, track, release))
+
+    return review_items
+
+
 def collect_review_items(settings: Settings) -> list[dict[str, str]]:
     headers = auth_headers(settings)
     apps = fetch_apps(settings, headers)
@@ -353,6 +483,7 @@ def collect_review_items(settings: Settings) -> list[dict[str, str]]:
             cpp_versions = fetch_custom_product_page_versions(settings, headers, page_id)
             review_items.extend(normalize_custom_product_page_versions(app, cpp_page, cpp_versions))
 
+    review_items.extend(collect_google_play_items(settings))
     review_items.sort(key=lambda item: (item["entity_type"], item["app_name"], item["name"], item.get("version", "")))
     return review_items
 
@@ -390,6 +521,19 @@ def sandbox_review_items() -> list[dict[str, str]]:
             "name": "Spring Challenge",
             "platform": "IOS",
             "state": "PUBLISHED",
+        },
+        {
+            "entity_type": "GOOGLE_PLAY_RELEASE",
+            "entity_id": "com.demo.reader:production:100001",
+            "app_id": "com.demo.reader",
+            "app_name": "com.demo.reader",
+            "bundle_id": "com.demo.reader",
+            "name": "2.3.1",
+            "platform": "ANDROID",
+            "state": "completed",
+            "track": "production",
+            "version": "100001",
+            "rollout": "-",
         },
     ]
 
@@ -496,6 +640,8 @@ def item_label(item: dict[str, str]) -> str:
         return f"CPP | {app_name} | {item.get('name', '-')} | v{item.get('version', '-')}"
     if entity_type == "IAE":
         return f"IAE | {app_name} | {item.get('name', '-')}"
+    if entity_type == "GOOGLE_PLAY_RELEASE":
+        return f"Google Play | {app_name} | {item.get('track', '-')} | {item.get('version', '-')}"
     return f"对象 | {app_name} | {item.get('name', '-')}"
 
 
@@ -503,6 +649,9 @@ def primary_app_name(items: list[dict[str, str]]) -> str:
     ios_names = [item.get("app_name", "").strip() for item in items if item.get("platform") == "IOS" and item.get("app_name", "").strip()]
     if ios_names:
         return ios_names[0]
+    android_names = [item.get("app_name", "").strip() for item in items if item.get("platform") == "ANDROID" and item.get("app_name", "").strip()]
+    if android_names:
+        return android_names[0]
     other_names = [item.get("app_name", "").strip() for item in items if item.get("app_name", "").strip()]
     if other_names:
         return other_names[0]
@@ -561,6 +710,8 @@ def entity_label(item: dict[str, str]) -> str:
         return f"[{app_name}] CPP：{item.get('name', '-')} | v{item.get('version', '-')}"
     if entity_type == "IAE":
         return f"[{app_name}] IAE：{item.get('name', '-')}"
+    if entity_type == "GOOGLE_PLAY_RELEASE":
+        return f"[{app_name}] Google Play：{item.get('name', '-')} | {item.get('track', '-')} | {item.get('version', '-')}"
     return f"对象：{item_label(item)}"
 
 

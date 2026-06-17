@@ -42,11 +42,19 @@ jobs:
           ${{ secrets.ASC_PRIVATE_KEY }}
           EOF
 
+      - name: Write Google Play service account key
+        run: |
+          cat > google_play_service_account.json <<'EOF'
+          ${{ secrets.GPLAY_SERVICE_ACCOUNT_JSON }}
+          EOF
+
       - name: Run review report
         env:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_PRIVATE_KEY_PATH: ./asc_private_key.p8
+          GPLAY_SERVICE_ACCOUNT_JSON_PATH: ./google_play_service_account.json
+          GPLAY_PACKAGE_NAMES: ${{ secrets.GPLAY_PACKAGE_NAMES }}
           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
           FEISHU_SECRET: ${{ secrets.FEISHU_SECRET }}
           FEISHU_KEYWORD: ${{ secrets.FEISHU_KEYWORD }}

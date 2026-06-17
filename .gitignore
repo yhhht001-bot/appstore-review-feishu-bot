@@ -4,4 +4,5 @@ __pycache__/
 .env
 .venv/
 asc_private_key.p8
+google_play_service_account.json
 .state/
