@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
+    inputs:
+      send_google_play_snapshot:
+        description: "立即发送当前 Google Play 审核状态"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
 
 permissions:
   contents: write
@@ -60,6 +69,7 @@ jobs:
           FEISHU_KEYWORD: ${{ secrets.FEISHU_KEYWORD }}
           ASC_APP_IDS: ${{ secrets.ASC_APP_IDS }}
           STATE_FILE_PATH: ./.state/appstore_review_state.json
+          SEND_GOOGLE_PLAY_SNAPSHOT: ${{ github.event.inputs.send_google_play_snapshot || 'false' }}
         run: python appstore_review_report.py
 
       - name: Persist state

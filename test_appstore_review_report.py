@@ -65,6 +65,7 @@ class CollectReviewItemsTests(unittest.TestCase):
             gplay_package_names=(),
             state_file_path="./.state/test.json",
             sandbox_mode=False,
+            send_google_play_snapshot=False,
         )
         app_a = make_app("app-a", "Chair Yoga & Tai Chi Walking")
         app_b = make_app("app-b", "Other App")
@@ -113,6 +114,7 @@ class CollectReviewItemsTests(unittest.TestCase):
                 gplay_package_names=("com.example.app",),
                 state_file_path="./.state/test.json",
                 sandbox_mode=False,
+                send_google_play_snapshot=False,
             )
 
             tracks = [
@@ -164,6 +166,7 @@ class MessageGroupingTests(unittest.TestCase):
             gplay_package_names=(),
             state_file_path="./.state/test.json",
             sandbox_mode=False,
+            send_google_play_snapshot=False,
         )
         changes = [
             {
@@ -191,6 +194,56 @@ class MessageGroupingTests(unittest.TestCase):
                 "Other App",
                 "[Other App] IAE：Challenge12",
                 "旧状态：已通过",
+                "新状态：已发布",
+            ],
+        )
+
+    def test_build_google_play_snapshot_payload_renders_android_status(self) -> None:
+        settings = report.Settings(
+            asc_issuer_id="issuer",
+            asc_key_id="key",
+            asc_private_key_path="unused.p8",
+            feishu_webhook_url="https://example.com",
+            feishu_secret="",
+            feishu_keyword="",
+            asc_api_base_url="https://api.example.com",
+            asc_app_ids=(),
+            gplay_service_account_json_path="./google_play_service_account.json",
+            gplay_package_names=("com.example.app",),
+            state_file_path="./.state/test.json",
+            sandbox_mode=False,
+            send_google_play_snapshot=True,
+        )
+        payload = report.build_google_play_snapshot_payload(
+            settings,
+            [
+                {
+                    "entity_type": "GOOGLE_PLAY_RELEASE",
+                    "entity_id": "com.example.app:production:123",
+                    "app_id": "com.example.app",
+                    "app_name": "com.example.app",
+                    "bundle_id": "com.example.app",
+                    "name": "1.2.3",
+                    "platform": "ANDROID",
+                    "state": "completed",
+                    "track": "production",
+                    "version": "123",
+                    "rollout": "-",
+                }
+            ],
+        )
+
+        post = payload["content"]["post"]["zh_cn"]
+        texts = [row[0]["text"] for row in post["content"]]
+
+        self.assertTrue(post["title"].startswith("Google Play审核信息 "))
+        self.assertEqual(
+            texts,
+            [
+                "com.example.app",
+                "【ANDROID】",
+                "com.example.app",
+                "[com.example.app] Google Play：1.2.3 | production | 123",
                 "新状态：已发布",
             ],
         )

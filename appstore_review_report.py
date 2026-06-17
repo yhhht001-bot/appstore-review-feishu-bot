@@ -83,6 +83,7 @@ class Settings:
     gplay_package_names: tuple[str, ...]
     state_file_path: str
     sandbox_mode: bool
+    send_google_play_snapshot: bool
 
 
 def load_dotenv_if_present(path: Path) -> None:
@@ -137,6 +138,7 @@ def load_settings() -> Settings:
         gplay_package_names=csv_env("GPLAY_PACKAGE_NAMES"),
         state_file_path=os.getenv("STATE_FILE_PATH", "./.state/appstore_review_state.json").strip(),
         sandbox_mode=sandbox_mode,
+        send_google_play_snapshot=bool_env("SEND_GOOGLE_PLAY_SNAPSHOT", False),
     )
 
 
@@ -841,6 +843,11 @@ def build_snapshot_payload(settings: Settings, items: list[dict[str, str]]) -> d
     return build_feishu_payload_from_rows(build_snapshot_title(), rows)
 
 
+def build_google_play_snapshot_payload(settings: Settings, items: list[dict[str, str]]) -> dict[str, Any]:
+    rows = build_snapshot_rows(settings, items)
+    return build_feishu_payload_from_rows(f"Google Play审核信息 {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}", rows)
+
+
 def build_report_lines(settings: Settings, changes: list[dict[str, Any]]) -> list[str]:
     lines: list[str] = []
     if settings.feishu_keyword:
@@ -884,6 +891,25 @@ def main() -> int:
     try:
         load_dotenv_if_present(Path(".env"))
         settings = load_settings()
+
+        if settings.send_google_play_snapshot:
+            current_items = sandbox_review_items() if settings.sandbox_mode else collect_google_play_items(settings)
+            payload = build_google_play_snapshot_payload(settings, current_items)
+            result = send_to_feishu(settings, payload)
+            print(
+                json.dumps(
+                    {
+                        "status": "ok",
+                        "sandbox_mode": settings.sandbox_mode,
+                        "message": "已发送当前 Google Play 审核状态",
+                        "tracked_count": len(current_items),
+                        "feishu": result,
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            return 0
+
         current_items = sandbox_review_items() if settings.sandbox_mode else collect_review_items(settings)
         state_path = Path(settings.state_file_path)
         previous_items = load_snapshot(state_path)
