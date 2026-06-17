@@ -150,6 +150,16 @@ class CollectReviewItemsTests(unittest.TestCase):
             },
         )
 
+    def test_google_play_release_uses_configured_display_name(self) -> None:
+        item = report.normalize_google_play_release(
+            "com.seniorchairyoga.eab",
+            {"track": "production"},
+            {"name": "102 (1.0.0)", "status": "completed", "versionCodes": ["102"]},
+        )
+
+        self.assertEqual(item["app_name"], "Chair Yoga")
+        self.assertEqual(item["bundle_id"], "com.seniorchairyoga.eab")
+
 
 class MessageGroupingTests(unittest.TestCase):
     def test_build_report_rows_groups_changes_by_app_within_platform(self) -> None:
@@ -221,7 +231,7 @@ class MessageGroupingTests(unittest.TestCase):
                     "entity_type": "GOOGLE_PLAY_RELEASE",
                     "entity_id": "com.example.app:production:123",
                     "app_id": "com.example.app",
-                    "app_name": "com.example.app",
+                    "app_name": "Chair Yoga",
                     "bundle_id": "com.example.app",
                     "name": "1.2.3",
                     "platform": "ANDROID",
@@ -240,10 +250,10 @@ class MessageGroupingTests(unittest.TestCase):
         self.assertEqual(
             texts,
             [
-                "com.example.app",
+                "Chair Yoga",
                 "【ANDROID】",
-                "com.example.app",
-                "[com.example.app] Google Play：1.2.3 | production | 123",
+                "Chair Yoga",
+                "[Chair Yoga] Google Play：1.2.3 | production | 123",
                 "新状态：已发布",
             ],
         )

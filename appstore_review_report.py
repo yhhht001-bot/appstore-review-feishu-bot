@@ -67,6 +67,9 @@ STATE_LABELS = {
     "halted": "已暂停",
     "completed": "已发布",
 }
+GOOGLE_PLAY_APP_NAME_BY_PACKAGE = {
+    "com.seniorchairyoga.eab": "Chair Yoga",
+}
 
 
 @dataclass
@@ -418,7 +421,7 @@ def normalize_google_play_release(package_name: str, track: dict[str, Any], rele
         "entity_type": "GOOGLE_PLAY_RELEASE",
         "entity_id": f"{package_name}:{track_name}:{version_codes_label}",
         "app_id": package_name,
-        "app_name": package_name,
+        "app_name": GOOGLE_PLAY_APP_NAME_BY_PACKAGE.get(package_name, package_name),
         "bundle_id": package_name,
         "name": release_name,
         "platform": "ANDROID",
