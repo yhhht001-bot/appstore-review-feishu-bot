@@ -383,7 +383,17 @@
       "name": "Challenge3",
       "platform": "IOS",
       "state": "PUBLISHED"
+    },
+    "IAE:6781142618": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga & Tai Chi Walking",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6781142618",
+      "entity_type": "IAE",
+      "name": "challenge12",
+      "platform": "IOS",
+      "state": "APPROVED"
     }
   },
-  "updated_at": "2026-06-16T16:51:39.486318+00:00"
+  "updated_at": "2026-06-17T10:55:06.325180+00:00"
 }
