@@ -36,9 +36,9 @@
       "bundle_id": "com.taichisenior.yuanqifitness",
       "entity_id": "4f85b5b9-304a-4a60-a712-8234f26d2d48",
       "entity_type": "APP_VERSION",
-      "name": "1.5.0",
+      "name": "1.4.1",
       "platform": "IOS",
-      "state": "PREPARE_FOR_SUBMISSION"
+      "state": "WAITING_FOR_REVIEW"
     },
     "APP_VERSION:57934b1b-aa76-4116-b75e-e3471e4c2e87": {
       "app_id": "6758745743",
@@ -402,7 +402,7 @@
       "entity_type": "IAE",
       "name": "Challenge22",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "APPROVED"
     },
     "IAE:6781604832": {
       "app_id": "6767155434",
@@ -412,8 +412,8 @@
       "entity_type": "IAE",
       "name": "challenge22",
       "platform": "IOS",
-      "state": "DRAFT"
+      "state": "APPROVED"
     }
   },
-  "updated_at": "2026-06-18T08:48:37.368706+00:00"
+  "updated_at": "2026-06-18T12:52:07.393574+00:00"
 }
