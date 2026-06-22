@@ -229,7 +229,7 @@
       "name": "Chair Yoga_0622",
       "parent_id": "52d2b301-6c39-44e1-aeb9-00b356e6317d",
       "platform": "IOS",
-      "state": "READY_FOR_REVIEW",
+      "state": "IN_REVIEW",
       "version": "1"
     },
     "CPP:8aa8fe9f-28be-447f-a3c2-d51fb5fc7c29": {
@@ -277,7 +277,7 @@
       "name": "Chair Tai Chi_0622",
       "parent_id": "f61b7b5b-09af-4e0f-b9b6-d8bf3c1f3af5",
       "platform": "IOS",
-      "state": "READY_FOR_REVIEW",
+      "state": "IN_REVIEW",
       "version": "1"
     },
     "IAE:6759826894": {
@@ -461,5 +461,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-06-22T16:54:59.925790+00:00"
+  "updated_at": "2026-06-22T20:47:21.750724+00:00"
 }
