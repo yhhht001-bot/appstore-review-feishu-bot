@@ -205,7 +205,7 @@
       "name": "Tai Chi_0622",
       "parent_id": "17efcca8-7e4e-46ab-8840-5bee8c423a13",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:58198dd5-d744-4d8f-8e18-7d34aebd7f6a": {
@@ -217,7 +217,7 @@
       "name": "Tai Chi Walking_0622",
       "parent_id": "f6281e8c-e711-400c-a8f8-270b778a0c27",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:81faf503-70c9-427e-976a-0111829efef5": {
@@ -461,5 +461,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-06-22T11:53:10.890206+00:00"
+  "updated_at": "2026-06-22T16:54:59.925790+00:00"
 }
