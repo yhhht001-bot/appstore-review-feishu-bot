@@ -169,7 +169,7 @@
       "name": "Default_Section2_0611",
       "parent_id": "833597cf-ca8c-4219-87d7-a4e232fa7332",
       "platform": "IOS",
-      "state": "APPROVED",
+      "state": "REPLACED_WITH_NEW_VERSION",
       "version": "1"
     },
     "CPP:0a9fccb1-a935-499d-9828-ba2585378105": {
@@ -217,7 +217,7 @@
       "name": "Default_Section2_0611",
       "parent_id": "833597cf-ca8c-4219-87d7-a4e232fa7332",
       "platform": "IOS",
-      "state": "IN_REVIEW",
+      "state": "APPROVED",
       "version": "2"
     },
     "CPP:58198dd5-d744-4d8f-8e18-7d34aebd7f6a": {
@@ -473,5 +473,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-06-26T22:44:07.161373+00:00"
+  "updated_at": "2026-06-27T22:10:44.504779+00:00"
 }
