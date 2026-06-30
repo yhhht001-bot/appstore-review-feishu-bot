@@ -370,7 +370,7 @@
       "entity_type": "IAE",
       "name": "Challenge",
       "platform": "IOS",
-      "state": "PAST"
+      "state": "ARCHIVED"
     },
     "IAE:6763221926": {
       "app_id": "6758745743",
@@ -380,7 +380,7 @@
       "entity_type": "IAE",
       "name": "New Season",
       "platform": "IOS",
-      "state": "PAST"
+      "state": "ARCHIVED"
     },
     "IAE:6767137169": {
       "app_id": "6758745743",
@@ -400,7 +400,7 @@
       "entity_type": "IAE",
       "name": "Challenge",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6773193853": {
       "app_id": "6758745743",
@@ -483,5 +483,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-06-29T17:33:47.567398+00:00"
+  "updated_at": "2026-06-30T16:02:40.108107+00:00"
 }
