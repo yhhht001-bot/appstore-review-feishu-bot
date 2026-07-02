@@ -22,11 +22,11 @@
     },
     "APP_VERSION:39b4b83d-ce10-4555-98fe-d99520e2449f": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "39b4b83d-ce10-4555-98fe-d99520e2449f",
       "entity_type": "APP_VERSION",
-      "name": "1.1.2",
+      "name": "1.2.0",
       "platform": "IOS",
       "state": "PREPARE_FOR_SUBMISSION"
     },
@@ -82,7 +82,7 @@
     },
     "APP_VERSION:6963543b-6af3-4fc2-9ec2-e2d49373873d": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6963543b-6af3-4fc2-9ec2-e2d49373873d",
       "entity_type": "APP_VERSION",
@@ -112,7 +112,7 @@
     },
     "APP_VERSION:8fc517b5-ecec-4df0-84be-8ec7075d0c3c": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "8fc517b5-ecec-4df0-84be-8ec7075d0c3c",
       "entity_type": "APP_VERSION",
@@ -162,7 +162,7 @@
     },
     "APP_VERSION:d5132667-79f1-4eeb-b3c7-26fb0dde7059": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "d5132667-79f1-4eeb-b3c7-26fb0dde7059",
       "entity_type": "APP_VERSION",
@@ -192,6 +192,18 @@
       "parent_id": "6786b217-9a73-4c32-a87b-d2b4c7051a9a",
       "platform": "IOS",
       "state": "APPROVED",
+      "version": "1"
+    },
+    "CPP:1df52e5f-6817-4bb0-884c-d371b6cc0a0f": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "1df52e5f-6817-4bb0-884c-d371b6cc0a0f",
+      "entity_type": "CPP",
+      "name": "yoga 1_CP_0702",
+      "parent_id": "27316a32-e815-41b5-858b-95b8699cb126",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW",
       "version": "1"
     },
     "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
@@ -242,6 +254,18 @@
       "state": "APPROVED",
       "version": "1"
     },
+    "CPP:6382e4a6-71c0-4352-a6ac-457185fd3af0": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6382e4a6-71c0-4352-a6ac-457185fd3af0",
+      "entity_type": "CPP",
+      "name": "yoga 2_0702",
+      "parent_id": "fb967350-32d6-4cbb-95b5-b166f83872a2",
+      "platform": "IOS",
+      "state": "READY_FOR_REVIEW",
+      "version": "1"
+    },
     "CPP:81faf503-70c9-427e-976a-0111829efef5": {
       "app_id": "6758745743",
       "app_name": "Tai Chi for Seniors Beginners",
@@ -280,7 +304,7 @@
     },
     "CPP:c6956410-16ed-48a2-9377-2e3a68b83736": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "c6956410-16ed-48a2-9377-2e3a68b83736",
       "entity_type": "CPP",
@@ -394,7 +418,7 @@
     },
     "IAE:6767817227": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6767817227",
       "entity_type": "IAE",
@@ -424,7 +448,7 @@
     },
     "IAE:6776585615": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6776585615",
       "entity_type": "IAE",
@@ -454,7 +478,7 @@
     },
     "IAE:6781142618": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6781142618",
       "entity_type": "IAE",
@@ -474,14 +498,114 @@
     },
     "IAE:6781604832": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga & Tai Chi Walking",
+      "app_name": "Chair Yoga Tai Chi Stretching",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6781604832",
       "entity_type": "IAE",
       "name": "challenge22",
       "platform": "IOS",
       "state": "PUBLISHED"
+    },
+    "IAE:6786600669": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6786600669",
+      "entity_type": "IAE",
+      "name": "challenge11",
+      "platform": "IOS",
+      "state": "READY_FOR_REVIEW"
+    },
+    "IAE:6786601455": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6786601455",
+      "entity_type": "IAE",
+      "name": "challenge223",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW"
+    },
+    "IAE:6786601678": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6786601678",
+      "entity_type": "IAE",
+      "name": "challenge312",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6786601872": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6786601872",
+      "entity_type": "IAE",
+      "name": "challenge55",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6786602055": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6786602055",
+      "entity_type": "IAE",
+      "name": "challenge5521",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6786602436": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6786602436",
+      "entity_type": "IAE",
+      "name": "challenge231",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6786602622": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6786602622",
+      "entity_type": "IAE",
+      "name": "challeng56",
+      "platform": "IOS",
+      "state": "READY_FOR_REVIEW"
+    },
+    "IAE:6786602730": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6786602730",
+      "entity_type": "IAE",
+      "name": "challenge555",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6786602781": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6786602781",
+      "entity_type": "IAE",
+      "name": "challenge88",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6786603083": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6786603083",
+      "entity_type": "IAE",
+      "name": "challenge566",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW"
     }
   },
-  "updated_at": "2026-06-30T16:02:40.108107+00:00"
+  "updated_at": "2026-07-02T09:15:23.540866+00:00"
 }
