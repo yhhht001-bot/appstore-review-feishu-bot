@@ -203,7 +203,7 @@
       "name": "yoga 1_CP_0702",
       "parent_id": "27316a32-e815-41b5-858b-95b8699cb126",
       "platform": "IOS",
-      "state": "IN_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
@@ -607,5 +607,5 @@
       "state": "APPROVED"
     }
   },
-  "updated_at": "2026-07-02T20:01:20.020682+00:00"
+  "updated_at": "2026-07-02T23:02:16.360544+00:00"
 }
