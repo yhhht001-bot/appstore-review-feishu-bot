@@ -263,7 +263,7 @@
       "name": "yoga 2_0702",
       "parent_id": "fb967350-32d6-4cbb-95b5-b166f83872a2",
       "platform": "IOS",
-      "state": "READY_FOR_REVIEW",
+      "state": "WAITING_FOR_REVIEW",
       "version": "1"
     },
     "CPP:81faf503-70c9-427e-976a-0111829efef5": {
@@ -514,7 +514,7 @@
       "entity_type": "IAE",
       "name": "challenge11",
       "platform": "IOS",
-      "state": "READY_FOR_REVIEW"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6786601455": {
       "app_id": "6767155434",
@@ -574,7 +574,7 @@
       "entity_type": "IAE",
       "name": "challeng56",
       "platform": "IOS",
-      "state": "READY_FOR_REVIEW"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6786602730": {
       "app_id": "6758745743",
@@ -607,5 +607,5 @@
       "state": "APPROVED"
     }
   },
-  "updated_at": "2026-07-02T13:52:48.715749+00:00"
+  "updated_at": "2026-07-02T16:04:07.595720+00:00"
 }
