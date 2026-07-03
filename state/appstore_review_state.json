@@ -524,7 +524,7 @@
       "entity_type": "IAE",
       "name": "challenge11",
       "platform": "IOS",
-      "state": "APPROVED"
+      "state": "PUBLISHED"
     },
     "IAE:6786601455": {
       "app_id": "6767155434",
@@ -564,7 +564,7 @@
       "entity_type": "IAE",
       "name": "challenge5521",
       "platform": "IOS",
-      "state": "DRAFT"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6786602436": {
       "app_id": "6758745743",
@@ -574,7 +574,7 @@
       "entity_type": "IAE",
       "name": "challenge231",
       "platform": "IOS",
-      "state": "APPROVED"
+      "state": "PUBLISHED"
     },
     "IAE:6786602622": {
       "app_id": "6758745743",
@@ -594,7 +594,7 @@
       "entity_type": "IAE",
       "name": "challenge555",
       "platform": "IOS",
-      "state": "DRAFT"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6786602781": {
       "app_id": "6758745743",
@@ -604,7 +604,7 @@
       "entity_type": "IAE",
       "name": "challenge88",
       "platform": "IOS",
-      "state": "DRAFT"
+      "state": "READY_FOR_REVIEW"
     },
     "IAE:6786603083": {
       "app_id": "6758745743",
@@ -617,5 +617,5 @@
       "state": "APPROVED"
     }
   },
-  "updated_at": "2026-07-03T13:21:36.516805+00:00"
+  "updated_at": "2026-07-03T15:33:14.159628+00:00"
 }
