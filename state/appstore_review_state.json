@@ -552,7 +552,7 @@
       "entity_type": "IAE",
       "name": "challenge55",
       "platform": "IOS",
-      "state": "APPROVED"
+      "state": "PUBLISHED"
     },
     "IAE:6786602055": {
       "app_id": "6767155434",
@@ -615,5 +615,5 @@
       "state": "APPROVED"
     }
   },
-  "updated_at": "2026-07-07T08:20:34.524970+00:00"
+  "updated_at": "2026-07-07T16:27:37.339517+00:00"
 }
