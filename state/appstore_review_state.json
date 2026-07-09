@@ -30,6 +30,16 @@
       "platform": "IOS",
       "state": "PREPARE_FOR_SUBMISSION"
     },
+    "APP_VERSION:2c049291-4102-4271-9a3c-37a140f50277": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Stretching",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "2c049291-4102-4271-9a3c-37a140f50277",
+      "entity_type": "APP_VERSION",
+      "name": "1.2.1",
+      "platform": "IOS",
+      "state": "PREPARE_FOR_SUBMISSION"
+    },
     "APP_VERSION:39b4b83d-ce10-4555-98fe-d99520e2449f": {
       "app_id": "6767155434",
       "app_name": "Chair Yoga Tai Chi Stretching",
@@ -615,5 +625,5 @@
       "state": "APPROVED"
     }
   },
-  "updated_at": "2026-07-08T15:40:33.243198+00:00"
+  "updated_at": "2026-07-09T09:40:27.020004+00:00"
 }
