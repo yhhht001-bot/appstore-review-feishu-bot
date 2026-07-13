@@ -462,7 +462,7 @@
       "entity_type": "IAE",
       "name": "Challenge12",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6776585615": {
       "app_id": "6767155434",
@@ -625,5 +625,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-07-12T14:40:45.876358+00:00"
+  "updated_at": "2026-07-13T15:20:38.970323+00:00"
 }
