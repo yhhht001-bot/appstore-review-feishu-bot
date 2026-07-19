@@ -26,7 +26,7 @@
       "bundle_id": "com.taichisenior.yuanqifitness",
       "entity_id": "22539efe-454a-4a41-8506-51b2e3aa3dfe",
       "entity_type": "APP_VERSION",
-      "name": "1.5.3",
+      "name": "2.0.0",
       "platform": "IOS",
       "state": "PREPARE_FOR_SUBMISSION"
     },
@@ -472,7 +472,7 @@
       "entity_type": "IAE",
       "name": "Challenge1",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6777003294": {
       "app_id": "6758745743",
@@ -625,5 +625,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-07-13T15:20:38.970323+00:00"
+  "updated_at": "2026-07-19T14:37:35.812845+00:00"
 }
