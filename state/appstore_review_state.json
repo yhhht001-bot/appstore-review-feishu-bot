@@ -221,7 +221,7 @@
       "name": "组图_260723",
       "parent_id": "b0521212-17f7-408f-976e-90461ac1a3c3",
       "platform": "IOS",
-      "state": "IN_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:0a9fccb1-a935-499d-9828-ba2585378105": {
@@ -293,7 +293,7 @@
       "name": "default_blue_0723",
       "parent_id": "dea5f705-be2c-4ff0-bc65-8608cabc19e7",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:58198dd5-d744-4d8f-8e18-7d34aebd7f6a": {
@@ -649,5 +649,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-07-23T20:59:46.944877+00:00"
+  "updated_at": "2026-07-23T22:10:08.411110+00:00"
 }
