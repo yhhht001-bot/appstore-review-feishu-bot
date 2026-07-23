@@ -221,7 +221,7 @@
       "name": "组图_260723",
       "parent_id": "b0521212-17f7-408f-976e-90461ac1a3c3",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "IN_REVIEW",
       "version": "1"
     },
     "CPP:0a9fccb1-a935-499d-9828-ba2585378105": {
@@ -649,5 +649,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-07-23T09:08:13.478836+00:00"
+  "updated_at": "2026-07-23T20:59:46.944877+00:00"
 }
