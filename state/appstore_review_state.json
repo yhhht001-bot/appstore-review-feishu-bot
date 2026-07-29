@@ -257,7 +257,7 @@
       "name": "ChairTaiChi_紫_0729",
       "parent_id": "445c443a-62cc-4fb7-818a-d949b5191f52",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "IN_REVIEW",
       "version": "1"
     },
     "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
@@ -661,5 +661,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-07-29T12:28:03.570632+00:00"
+  "updated_at": "2026-07-29T16:18:44.844020+00:00"
 }
