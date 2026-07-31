@@ -365,7 +365,7 @@
       "name": "Taichi_0731",
       "parent_id": "d35881cb-e992-4dfe-8612-50b2643aef00",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "IN_REVIEW",
       "version": "1"
     },
     "CPP:c33cafb6-a717-48c1-984f-4c64088971be": {
@@ -673,5 +673,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-07-31T08:44:44.660347+00:00"
+  "updated_at": "2026-07-31T20:17:26.624641+00:00"
 }
