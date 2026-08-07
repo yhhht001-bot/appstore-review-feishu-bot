@@ -60,6 +60,16 @@
       "platform": "IOS",
       "state": "READY_FOR_SALE / READY_FOR_DISTRIBUTION"
     },
+    "APP_VERSION:3dd5cf0a-7ff0-493b-bb64-1cf2ee7a03eb": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "3dd5cf0a-7ff0-493b-bb64-1cf2ee7a03eb",
+      "entity_type": "APP_VERSION",
+      "name": "2.0.1",
+      "platform": "IOS",
+      "state": "PREPARE_FOR_SUBMISSION"
+    },
     "APP_VERSION:4f85b5b9-304a-4a60-a712-8234f26d2d48": {
       "app_id": "6758745743",
       "app_name": "Tai Chi for Seniors Beginners",
@@ -129,6 +139,16 @@
       "name": "1.3.0",
       "platform": "IOS",
       "state": "READY_FOR_SALE / READY_FOR_DISTRIBUTION"
+    },
+    "APP_VERSION:86f13910-8a30-4a5e-8b37-20a3386e7a8e": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Fitness",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "86f13910-8a30-4a5e-8b37-20a3386e7a8e",
+      "entity_type": "APP_VERSION",
+      "name": "1.2.2",
+      "platform": "IOS",
+      "state": "PREPARE_FOR_SUBMISSION"
     },
     "APP_VERSION:898fdea3-dc44-4360-b122-4ff0fadd90e8": {
       "app_id": "6758745743",
@@ -354,6 +374,18 @@
       "parent_id": "ec1ee258-4fec-4747-968e-b6bb0caef9d6",
       "platform": "IOS",
       "state": "APPROVED",
+      "version": "1"
+    },
+    "CPP:8bdb5b21-bd1c-4fd0-9526-8b8b496192ba": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Fitness",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "8bdb5b21-bd1c-4fd0-9526-8b8b496192ba",
+      "entity_type": "CPP",
+      "name": "Yoga_0807",
+      "parent_id": "b5cb8c58-025b-4690-a3dd-ffe4aa29d5e8",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW",
       "version": "1"
     },
     "CPP:c000153c-6333-4adc-be76-53b96f0673b7": {
@@ -673,5 +705,5 @@
       "state": "PUBLISHED"
     }
   },
-  "updated_at": "2026-08-04T08:02:59.232951+00:00"
+  "updated_at": "2026-08-07T06:44:11.923474+00:00"
 }
