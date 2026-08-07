@@ -265,7 +265,7 @@
       "name": "default_Green_0807",
       "parent_id": "05d78dee-1598-44d9-8671-0ff4eaf784ff",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:1df52e5f-6817-4bb0-884c-d371b6cc0a0f": {
@@ -409,7 +409,7 @@
       "name": "Gym_0807",
       "parent_id": "eae8edc7-2f68-4a5a-89eb-08d191d63d80",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:c000153c-6333-4adc-be76-53b96f0673b7": {
@@ -739,5 +739,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-07T17:21:30.815029+00:00"
+  "updated_at": "2026-08-07T18:10:09.048825+00:00"
 }
