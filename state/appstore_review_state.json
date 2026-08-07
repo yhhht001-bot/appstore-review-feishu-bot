@@ -397,7 +397,7 @@
       "name": "Yoga_0807",
       "parent_id": "b5cb8c58-025b-4690-a3dd-ffe4aa29d5e8",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:93092f75-014c-4fa5-b65d-ace1c6cf57a7": {
@@ -739,5 +739,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-07T08:10:48.563827+00:00"
+  "updated_at": "2026-08-07T17:21:30.815029+00:00"
 }
