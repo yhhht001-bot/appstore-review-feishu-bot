@@ -309,7 +309,7 @@
       "name": "taichi_0814",
       "parent_id": "ba6bddb9-655b-4e27-9a61-391569bd5a3e",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:20f1ba90-5ce2-440a-be72-d84db90e981e": {
@@ -771,5 +771,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-14T09:57:01.268925+00:00"
+  "updated_at": "2026-08-14T18:24:45.176509+00:00"
 }
