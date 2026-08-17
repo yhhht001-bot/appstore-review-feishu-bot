@@ -668,7 +668,7 @@
       "entity_type": "IAE",
       "name": "challenge11",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6786601455": {
       "app_id": "6767155434",
@@ -718,7 +718,7 @@
       "entity_type": "IAE",
       "name": "challenge231",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6786602622": {
       "app_id": "6758745743",
@@ -771,5 +771,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-14T18:24:45.176509+00:00"
+  "updated_at": "2026-08-17T14:23:06.039077+00:00"
 }
