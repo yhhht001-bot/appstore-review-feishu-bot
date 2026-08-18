@@ -489,7 +489,7 @@
       "name": "view_0818",
       "parent_id": "82ae11da-d914-4313-8953-e32414161f17",
       "platform": "IOS",
-      "state": "IN_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "IAE:6759826894": {
@@ -783,5 +783,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-18T19:24:35.588986+00:00"
+  "updated_at": "2026-08-18T20:48:41.368365+00:00"
 }
