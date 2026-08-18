@@ -620,7 +620,7 @@
       "entity_type": "IAE",
       "name": "Challenge1",
       "platform": "IOS",
-      "state": "PAST"
+      "state": "ARCHIVED"
     },
     "IAE:6777003294": {
       "app_id": "6758745743",
@@ -690,7 +690,7 @@
       "entity_type": "IAE",
       "name": "challenge223",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6786601678": {
       "app_id": "6767155434",
@@ -740,7 +740,7 @@
       "entity_type": "IAE",
       "name": "challeng56",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6786602730": {
       "app_id": "6758745743",
@@ -783,5 +783,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-18T11:21:47.219760+00:00"
+  "updated_at": "2026-08-18T14:29:14.772530+00:00"
 }
