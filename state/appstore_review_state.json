@@ -42,7 +42,7 @@
     },
     "APP_VERSION:2c049291-4102-4271-9a3c-37a140f50277": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "2c049291-4102-4271-9a3c-37a140f50277",
       "entity_type": "APP_VERSION",
@@ -52,7 +52,7 @@
     },
     "APP_VERSION:39b4b83d-ce10-4555-98fe-d99520e2449f": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "39b4b83d-ce10-4555-98fe-d99520e2449f",
       "entity_type": "APP_VERSION",
@@ -132,7 +132,7 @@
     },
     "APP_VERSION:6963543b-6af3-4fc2-9ec2-e2d49373873d": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6963543b-6af3-4fc2-9ec2-e2d49373873d",
       "entity_type": "APP_VERSION",
@@ -152,7 +152,7 @@
     },
     "APP_VERSION:86f13910-8a30-4a5e-8b37-20a3386e7a8e": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "86f13910-8a30-4a5e-8b37-20a3386e7a8e",
       "entity_type": "APP_VERSION",
@@ -172,7 +172,7 @@
     },
     "APP_VERSION:8fc517b5-ecec-4df0-84be-8ec7075d0c3c": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "8fc517b5-ecec-4df0-84be-8ec7075d0c3c",
       "entity_type": "APP_VERSION",
@@ -202,7 +202,7 @@
     },
     "APP_VERSION:a9095c31-e4ef-4699-93c4-ab2dc9ee57de": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "a9095c31-e4ef-4699-93c4-ab2dc9ee57de",
       "entity_type": "APP_VERSION",
@@ -232,7 +232,7 @@
     },
     "APP_VERSION:d5132667-79f1-4eeb-b3c7-26fb0dde7059": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "d5132667-79f1-4eeb-b3c7-26fb0dde7059",
       "entity_type": "APP_VERSION",
@@ -250,6 +250,18 @@
       "parent_id": "833597cf-ca8c-4219-87d7-a4e232fa7332",
       "platform": "IOS",
       "state": "REPLACED_WITH_NEW_VERSION",
+      "version": "1"
+    },
+    "CPP:087c8dd5-77c1-4b10-86f2-1a9ee582e506": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "087c8dd5-77c1-4b10-86f2-1a9ee582e506",
+      "entity_type": "CPP",
+      "name": "workouts_0821",
+      "parent_id": "2380e656-8d2d-4fc1-bb38-d1afa6c0af23",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW",
       "version": "1"
     },
     "CPP:088a331f-2a08-497c-8d1d-66f762f5edbd": {
@@ -290,7 +302,7 @@
     },
     "CPP:1df52e5f-6817-4bb0-884c-d371b6cc0a0f": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "1df52e5f-6817-4bb0-884c-d371b6cc0a0f",
       "entity_type": "CPP",
@@ -322,6 +334,18 @@
       "parent_id": "445c443a-62cc-4fb7-818a-d949b5191f52",
       "platform": "IOS",
       "state": "APPROVED",
+      "version": "1"
+    },
+    "CPP:26f4ab96-c072-4719-b4f0-c868edca2f95": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "26f4ab96-c072-4719-b4f0-c868edca2f95",
+      "entity_type": "CPP",
+      "name": "workouts_0821",
+      "parent_id": "fb8b49a3-d8e4-436a-a7c9-d7e826389327",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW",
       "version": "1"
     },
     "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
@@ -386,7 +410,7 @@
     },
     "CPP:6382e4a6-71c0-4352-a6ac-457185fd3af0": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6382e4a6-71c0-4352-a6ac-457185fd3af0",
       "entity_type": "CPP",
@@ -422,7 +446,7 @@
     },
     "CPP:8bdb5b21-bd1c-4fd0-9526-8b8b496192ba": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "8bdb5b21-bd1c-4fd0-9526-8b8b496192ba",
       "entity_type": "CPP",
@@ -446,7 +470,7 @@
     },
     "CPP:c000153c-6333-4adc-be76-53b96f0673b7": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "c000153c-6333-4adc-be76-53b96f0673b7",
       "entity_type": "CPP",
@@ -584,7 +608,7 @@
     },
     "IAE:6767817227": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6767817227",
       "entity_type": "IAE",
@@ -614,7 +638,7 @@
     },
     "IAE:6776585615": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6776585615",
       "entity_type": "IAE",
@@ -644,7 +668,7 @@
     },
     "IAE:6781142618": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6781142618",
       "entity_type": "IAE",
@@ -664,7 +688,7 @@
     },
     "IAE:6781604832": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6781604832",
       "entity_type": "IAE",
@@ -674,7 +698,7 @@
     },
     "IAE:6786600669": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6786600669",
       "entity_type": "IAE",
@@ -684,7 +708,7 @@
     },
     "IAE:6786601455": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6786601455",
       "entity_type": "IAE",
@@ -694,7 +718,7 @@
     },
     "IAE:6786601678": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6786601678",
       "entity_type": "IAE",
@@ -704,7 +728,7 @@
     },
     "IAE:6786601872": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6786601872",
       "entity_type": "IAE",
@@ -714,7 +738,7 @@
     },
     "IAE:6786602055": {
       "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Fitness",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
       "bundle_id": "com.seniorchairyoga.yuanqifitness",
       "entity_id": "6786602055",
       "entity_type": "IAE",
@@ -778,10 +802,100 @@
       "bundle_id": "com.taichisenior.yuanqifitness",
       "entity_id": "6799009006",
       "entity_type": "IAE",
-      "name": "Walk Fit Tai Chi Routine",
+      "name": "Chair Tai Chi Routine",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW"
+    },
+    "IAE:6803833354": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6803833354",
+      "entity_type": "IAE",
+      "name": "Lasta Tai Chi Routine",
+      "platform": "IOS",
+      "state": "WAITING_FOR_REVIEW"
+    },
+    "IAE:6803835533": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6803835533",
+      "entity_type": "IAE",
+      "name": "Exercise for Seniors",
+      "platform": "IOS",
+      "state": "READY_FOR_REVIEW"
+    },
+    "IAE:6803836399": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6803836399",
+      "entity_type": "IAE",
+      "name": "Betterme Chair Yoga",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6803836900": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6803836900",
+      "entity_type": "IAE",
+      "name": "Your Weight Loss Coach",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6803837531": {
+      "app_id": "6767155434",
+      "app_name": "Chair Yoga Tai Chi Pilates Fit",
+      "bundle_id": "com.seniorchairyoga.yuanqifitness",
+      "entity_id": "6803837531",
+      "entity_type": "IAE",
+      "name": "Healthy Body Workshop",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6803841756": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6803841756",
+      "entity_type": "IAE",
+      "name": "Tai Chi Workouts Plan",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6803841996": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6803841996",
+      "entity_type": "IAE",
+      "name": "Tai Chi Walking Class",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6803842327": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6803842327",
+      "entity_type": "IAE",
+      "name": "Simple Life Challenge",
+      "platform": "IOS",
+      "state": "DRAFT"
+    },
+    "IAE:6803842399": {
+      "app_id": "6758745743",
+      "app_name": "Tai Chi for Seniors Beginners",
+      "bundle_id": "com.taichisenior.yuanqifitness",
+      "entity_id": "6803842399",
+      "entity_type": "IAE",
+      "name": "Relax and Breathe Now",
       "platform": "IOS",
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-20T14:32:36.650282+00:00"
+  "updated_at": "2026-08-21T09:32:43.714024+00:00"
 }
