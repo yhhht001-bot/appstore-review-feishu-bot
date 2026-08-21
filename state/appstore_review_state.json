@@ -208,7 +208,7 @@
       "entity_type": "APP_VERSION",
       "name": "1.2.3",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     },
     "APP_VERSION:b8b96d56-1260-408e-8f52-54e8ed18b84f": {
       "app_id": "6758745743",
@@ -804,7 +804,7 @@
       "entity_type": "IAE",
       "name": "Chair Tai Chi Routine",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     },
     "IAE:6803833354": {
       "app_id": "6767155434",
@@ -897,5 +897,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-21T14:31:03.285225+00:00"
+  "updated_at": "2026-08-21T17:55:48.992674+00:00"
 }
