@@ -18,7 +18,7 @@
       "entity_type": "APP_VERSION",
       "name": "2.1.1",
       "platform": "IOS",
-      "state": "PREPARE_FOR_SUBMISSION"
+      "state": "WAITING_FOR_REVIEW"
     },
     "APP_VERSION:136e6db8-49cf-47c5-b1ce-3f919f49357a": {
       "app_id": "6758745743",
@@ -208,7 +208,7 @@
       "entity_type": "APP_VERSION",
       "name": "1.2.3",
       "platform": "IOS",
-      "state": "PREPARE_FOR_SUBMISSION"
+      "state": "WAITING_FOR_REVIEW"
     },
     "APP_VERSION:b8b96d56-1260-408e-8f52-54e8ed18b84f": {
       "app_id": "6758745743",
@@ -261,7 +261,7 @@
       "name": "workouts_0821",
       "parent_id": "2380e656-8d2d-4fc1-bb38-d1afa6c0af23",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "READY_FOR_REVIEW",
       "version": "1"
     },
     "CPP:088a331f-2a08-497c-8d1d-66f762f5edbd": {
@@ -345,7 +345,7 @@
       "name": "workouts_0821",
       "parent_id": "fb8b49a3-d8e4-436a-a7c9-d7e826389327",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "READY_FOR_REVIEW",
       "version": "1"
     },
     "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
@@ -824,7 +824,7 @@
       "entity_type": "IAE",
       "name": "Exercise for Seniors",
       "platform": "IOS",
-      "state": "READY_FOR_REVIEW"
+      "state": "DRAFT"
     },
     "IAE:6803836399": {
       "app_id": "6767155434",
@@ -897,5 +897,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-21T09:32:43.714024+00:00"
+  "updated_at": "2026-08-21T10:25:52.871553+00:00"
 }
