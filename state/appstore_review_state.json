@@ -814,7 +814,7 @@
       "entity_type": "IAE",
       "name": "challenge566",
       "platform": "IOS",
-      "state": "PUBLISHED"
+      "state": "PAST"
     },
     "IAE:6799009006": {
       "app_id": "6758745743",
@@ -917,5 +917,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-24T07:54:53.391038+00:00"
+  "updated_at": "2026-08-24T14:37:54.701868+00:00"
 }
