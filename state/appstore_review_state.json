@@ -834,7 +834,7 @@
       "entity_type": "IAE",
       "name": "Lasta Tai Chi Routine",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "PUBLISHED"
     },
     "IAE:6803835533": {
       "app_id": "6767155434",
@@ -917,5 +917,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-24T06:51:00.495447+00:00"
+  "updated_at": "2026-08-24T07:54:53.391038+00:00"
 }
