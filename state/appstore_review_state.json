@@ -281,7 +281,7 @@
       "name": "workouts_0821",
       "parent_id": "2380e656-8d2d-4fc1-bb38-d1afa6c0af23",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:088a331f-2a08-497c-8d1d-66f762f5edbd": {
@@ -365,7 +365,7 @@
       "name": "workouts_0821",
       "parent_id": "fb8b49a3-d8e4-436a-a7c9-d7e826389327",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:2c5e2d9b-979b-4f18-8698-27216d652efb": {
@@ -884,7 +884,7 @@
       "entity_type": "IAE",
       "name": "Tai Chi Workouts Plan",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "REJECTED"
     },
     "IAE:6803841996": {
       "app_id": "6758745743",
@@ -917,5 +917,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-25T07:45:18.155892+00:00"
+  "updated_at": "2026-08-25T11:35:58.492095+00:00"
 }
