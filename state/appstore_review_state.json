@@ -864,7 +864,7 @@
       "entity_type": "IAE",
       "name": "Your Weight Loss Coach",
       "platform": "IOS",
-      "state": "DRAFT"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6803837531": {
       "app_id": "6767155434",
@@ -894,7 +894,7 @@
       "entity_type": "IAE",
       "name": "Tai Chi Walking Class",
       "platform": "IOS",
-      "state": "READY_FOR_REVIEW"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6803842327": {
       "app_id": "6758745743",
@@ -917,5 +917,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-25T11:35:58.492095+00:00"
+  "updated_at": "2026-08-25T12:40:25.338984+00:00"
 }
