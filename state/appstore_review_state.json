@@ -844,7 +844,7 @@
       "entity_type": "IAE",
       "name": "Exercise for Seniors",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "APPROVED"
     },
     "IAE:6803836399": {
       "app_id": "6767155434",
@@ -917,5 +917,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-26T02:45:15.238354+00:00"
+  "updated_at": "2026-08-26T18:12:50.030530+00:00"
 }
