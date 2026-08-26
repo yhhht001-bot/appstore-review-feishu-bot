@@ -674,7 +674,7 @@
       "entity_type": "IAE",
       "name": "watch",
       "platform": "IOS",
-      "state": "PAST"
+      "state": "ARCHIVED"
     },
     "IAE:6780793576": {
       "app_id": "6758745743",
@@ -917,5 +917,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-25T12:40:25.338984+00:00"
+  "updated_at": "2026-08-26T02:45:15.238354+00:00"
 }
