@@ -864,7 +864,7 @@
       "entity_type": "IAE",
       "name": "Your Weight Loss Coach",
       "platform": "IOS",
-      "state": "IN_REVIEW"
+      "state": "REJECTED"
     },
     "IAE:6803837531": {
       "app_id": "6767155434",
@@ -894,7 +894,7 @@
       "entity_type": "IAE",
       "name": "Tai Chi Walking Class",
       "platform": "IOS",
-      "state": "IN_REVIEW"
+      "state": "APPROVED"
     },
     "IAE:6803842327": {
       "app_id": "6758745743",
@@ -904,7 +904,7 @@
       "entity_type": "IAE",
       "name": "Simple Life Challenge",
       "platform": "IOS",
-      "state": "DRAFT"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6803842399": {
       "app_id": "6758745743",
@@ -917,5 +917,5 @@
       "state": "DRAFT"
     }
   },
-  "updated_at": "2026-08-27T00:25:07.833526+00:00"
+  "updated_at": "2026-08-27T10:06:15.963218+00:00"
 }
