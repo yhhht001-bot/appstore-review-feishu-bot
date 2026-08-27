@@ -854,17 +854,7 @@
       "entity_type": "IAE",
       "name": "Betterme Chair Yoga",
       "platform": "IOS",
-      "state": "DRAFT"
-    },
-    "IAE:6803836900": {
-      "app_id": "6767155434",
-      "app_name": "Chair Yoga Tai Chi Pilates Fit",
-      "bundle_id": "com.seniorchairyoga.yuanqifitness",
-      "entity_id": "6803836900",
-      "entity_type": "IAE",
-      "name": "Your Weight Loss Coach",
-      "platform": "IOS",
-      "state": "REJECTED"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6803837531": {
       "app_id": "6767155434",
@@ -874,17 +864,7 @@
       "entity_type": "IAE",
       "name": "Healthy Body Workshop",
       "platform": "IOS",
-      "state": "DRAFT"
-    },
-    "IAE:6803841756": {
-      "app_id": "6758745743",
-      "app_name": "Tai Chi for Seniors Beginners",
-      "bundle_id": "com.taichisenior.yuanqifitness",
-      "entity_id": "6803841756",
-      "entity_type": "IAE",
-      "name": "Tai Chi Workouts Plan",
-      "platform": "IOS",
-      "state": "REJECTED"
+      "state": "WAITING_FOR_REVIEW"
     },
     "IAE:6803841996": {
       "app_id": "6758745743",
@@ -914,8 +894,8 @@
       "entity_type": "IAE",
       "name": "Relax and Breathe Now",
       "platform": "IOS",
-      "state": "DRAFT"
+      "state": "WAITING_FOR_REVIEW"
     }
   },
-  "updated_at": "2026-08-27T10:06:15.963218+00:00"
+  "updated_at": "2026-08-27T20:39:31.060520+00:00"
 }
