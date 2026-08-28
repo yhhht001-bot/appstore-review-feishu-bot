@@ -854,7 +854,7 @@
       "entity_type": "IAE",
       "name": "Betterme Chair Yoga",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     },
     "IAE:6803837531": {
       "app_id": "6767155434",
@@ -864,7 +864,7 @@
       "entity_type": "IAE",
       "name": "Healthy Body Workshop",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     },
     "IAE:6803841996": {
       "app_id": "6758745743",
@@ -884,7 +884,7 @@
       "entity_type": "IAE",
       "name": "Simple Life Challenge",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "APPROVED"
     },
     "IAE:6803842399": {
       "app_id": "6758745743",
@@ -894,8 +894,8 @@
       "entity_type": "IAE",
       "name": "Relax and Breathe Now",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW"
+      "state": "IN_REVIEW"
     }
   },
-  "updated_at": "2026-08-27T20:39:31.060520+00:00"
+  "updated_at": "2026-08-28T05:04:50.478655+00:00"
 }
