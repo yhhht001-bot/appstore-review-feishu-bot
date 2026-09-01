@@ -449,7 +449,7 @@
       "name": "taichiwalking_0901",
       "parent_id": "8747db27-b244-45e7-ad4b-668c3854e84e",
       "platform": "IOS",
-      "state": "WAITING_FOR_REVIEW",
+      "state": "APPROVED",
       "version": "1"
     },
     "CPP:81faf503-70c9-427e-976a-0111829efef5": {
@@ -909,5 +909,5 @@
       "state": "APPROVED"
     }
   },
-  "updated_at": "2026-09-01T15:03:23.819559+00:00"
+  "updated_at": "2026-09-01T21:34:23.747864+00:00"
 }
